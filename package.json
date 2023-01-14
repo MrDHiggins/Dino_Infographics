@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/MrDHiggins/Dino_Infographics/issues"
   },
-  "homepage": "https://github.com/MrDHiggins/Dino_Infographics#readme"
+  "homepage": "https://github.com/MrDHiggins/Dino_Infographics#readme",
+  "dependencies": {
+    "json-server": "^0.17.1"
+  }
 }
