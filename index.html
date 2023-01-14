@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script type="text/javascript">
+        function getDinoData(){
+            let dinoPromise = fetch('https://dino-infographics.herokuapp.com/Dinos');
+            console.log(dinoPromise);
+        };
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -11,7 +17,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
     <link href="app.css" rel="stylesheet">
     <!-- Link to app.js with defer till HTML render -->
-    <script defer src="app.js"></script>
+    <script defer src="app.js">
+    </script>
+    
 </head>
 <body>
     <header>
@@ -35,7 +43,7 @@
                 <option>Omnivor</option>
                 <option>Carnivor</option>
             </select>
-            <div id="btn">Compare Me!</div>
+            <button id="btn" onclick='getDinoData()'>Compare Me!</div>
         </div>
     </form>
     <!-- .grid to attach tiles to -->

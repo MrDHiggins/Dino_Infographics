@@ -30,3 +30,10 @@
 
 
 // On button click, prepare and display infographic
+
+/**
+ * Fetch dino api data from deployed Heroku app
+ */
+
+
+
