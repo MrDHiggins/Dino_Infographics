@@ -1,6 +1,7 @@
 {
     "Dinos": [
         {
+            "id": 1,
             "species": "Triceratops",
             "weight": 13000,
             "height": 114,
@@ -10,6 +11,7 @@
             "fact": "First discovered in 1889 by Othniel Charles Marsh"
         },
         {
+            "id": 2,
             "species": "Tyrannosaurus Rex",
             "weight": 11905,
             "height": 144,
@@ -19,6 +21,7 @@
             "fact": "The largest known skull measures in at 5 feet long."
         },
         {
+            "id": 3,
             "species": "Anklyosaurus",
             "weight": 10500,
             "height": 55,
@@ -28,6 +31,7 @@
             "fact": "Anklyosaurus survived for approximately 135 million years."
         },
         {
+            "id": 4,
             "species": "Brachiosaurus",
             "weight": 70000,
             "height": "372",
@@ -37,6 +41,7 @@
             "fact": "An asteroid was named 9954 Brachiosaurus in 1991."
         },
         {
+            "id": 5,
             "species": "Stegosaurus",
             "weight": 11600,
             "height": 79,
@@ -46,6 +51,7 @@
             "fact": "The Stegosaurus had between 17 and 22 seperate places and flat spines."
         },
         {
+            "id": 6,
             "species": "Elasmosaurus",
             "weight": 16000,
             "height": 59,
@@ -55,6 +61,7 @@
             "fact": "Elasmosaurus was a marine reptile first discovered in Kansas."
         },
         {
+            "id": 7,
             "species": "Pteranodon",
             "weight": 44,
             "height": 20,
@@ -64,6 +71,7 @@
             "fact": "Actually a flying reptile, the Pteranodon is not a dinosaur."
         },
         {
+            "id": 8,
             "species": "Pigeon",
             "weight": 0.5,
             "height": 9,
