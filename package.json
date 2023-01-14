@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/MrDHiggins/Dino_Infographics#readme",
   "dependencies": {
+    "heroku": "^7.3.0",
     "json-server": "^0.17.1"
   }
 }
