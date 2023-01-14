@@ -1,0 +1,26 @@
+{
+  "name": "dino_infographics",
+  "version": "1.0.0",
+  "description": "Udacity Dino Project - Intermediate JS",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrDHiggins/Dino_Infographics.git"
+  },
+  "keywords": [
+    "Udacity",
+    "Intermediate",
+    "JavaScript",
+    "DinoProject",
+    "NanoDegree"
+  ],
+  "author": "Dyllan Fabio Higgins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrDHiggins/Dino_Infographics/issues"
+  },
+  "homepage": "https://github.com/MrDHiggins/Dino_Infographics#readme"
+}
