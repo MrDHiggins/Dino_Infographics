@@ -1,6 +1,13 @@
 
     // Create Dino Constructor
-
+    function Dino(species, weight, height, height, where, when, fact){
+        this.species = species,
+        this.weight = weight,
+        this.height = height,
+        this.where = where,
+        this.when = when,
+        this.fact = fact
+    }
 
     // Create Dino Objects
 
