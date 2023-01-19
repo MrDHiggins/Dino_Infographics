@@ -53,6 +53,33 @@
     human.prototype.constructor = human;
 
     // Use IIFE to get human data from form
+    const getHuman = (function (){
+        const getInputEl = {
+            getId: function(El_id){
+                return document.getElementById(El_id).value;
+            }
+        }
+        
+        function setName(name) {
+            name = getInputEl.getId('name');
+            return name;
+        }
+
+        function setHeight(cm){
+            cm = getInputEl.getId('cm');
+            return cm;
+        }
+
+        function setWeight(weight) {
+            weight = getInputEl.getId('weight');
+            return weight;
+        }
+
+        // Leave console.log() for further testing and development
+        console.log(new human(setName(), setHeight(), setWeight()));
+
+        return new human(setName(), setHeight(), setHeight());
+    })
 
 
     // Create Dino Compare Method 1
