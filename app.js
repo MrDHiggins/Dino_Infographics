@@ -12,13 +12,12 @@
     }
 
     // Create Dino Objects
-    let dinos = [];
-    function Dino(species, weight, height, diet, where, when, fact)
-    {
-        Organism.call({dinos},species, weight, height, diet, where, when, fact)
+
+    function Dino(species, weight, height, facts) {
+        Organism.call(this, species, weight, height, facts);
     }
     Dino.prototype = Object.create(Organism.prototype);
-    Dino.prototype.constructor = Dino;    
+    Dino.prototype.constructor = Dino;
 
     //fetch dino data from server
     const fetchDinoData = async () => {
@@ -28,7 +27,7 @@
         };
 
         const populateDino = async () => {
-            dinos = await fetchDinoData();
+            let dinos = await fetchDinoData();
             dinos.map(dino => new Dino(
                     dino.species,
                     dino.weight,
@@ -45,8 +44,8 @@
 
 
     // Create Human Object
-    function human(name, species, weight, height, diet, where){
-        Organism.call({}, species, weight, height, diet, where);
+    function human(name, weight, height ){
+        Organism.call(this, "Homo Sapien", weight, height);
         this.name = name;
     }
     human.prototype = Object.create(Organism.prototype);
@@ -60,26 +59,30 @@
             }
         }
         
-        function setName(name) {
-            name = getInputEl.getId('name');
+        function setName() {
+            let name = getInputEl.getId('name');
             return name;
         }
 
-        function setHeight(cm){
-            cm = getInputEl.getId('cm');
+        function setHeight(){
+            let cm = getInputEl.getId('cm');
             return cm;
         }
 
-        function setWeight(weight) {
-            weight = getInputEl.getId('weight');
+        function setWeight() {
+            let weight = getInputEl.getId('weight');
             return weight;
         }
 
         // Leave console.log() for further testing and development
-        console.log(new human(setName(), setHeight(), setWeight()));
-
-        return new human(setName(), setHeight(), setHeight());
+        console.log(new human(setName(), setWeight(), setHeight()));
+        // , setWeight(), setHeight()
+        // return new human(setName(), setHeight(), setHeight());
     })
+
+    //The below onClick method is for further testing and development
+    let button = document.getElementById('btn');
+    button.onclick(getHuman());
 
 
     // Create Dino Compare Method 1
