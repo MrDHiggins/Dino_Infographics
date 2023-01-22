@@ -30,37 +30,34 @@
 
     //fetch dino data from server
     const fetchDinoData = async () => {
-        try{
-            const fetchData = await fetch('https://dino-infographics.herokuapp.com/Dinos');
-            if(fetchData.ok){
-                const data = await res.json();
-                return data;
-            }
-            else {
-                throw new Error("Error fetching data from API.");
-            }
+      try {
+        const fetchData = await fetch(
+          "https://dino-infographics.herokuapp.com/Dinos"
+        );
+        if (fetchData.ok) {
+          const data = await res.json();
+          return data;
+        } else {
+          throw new Error("Error fetching data from API.");
         }
-        catch(error){
-            console.log(error);
-        }
+      } catch (error) {
+        console.log(error);
+      }
     };
 
-        const populateDino = async () => {
-            let dinos = await fetchDinoData();
-            dinos.map(dino => new Dino(
-                    dino.species,
-                    dino.weight,
-                    dino.height,
-                    dino.diet,
-                    dino.where,
-                    dino.when,
-                    dino.fact,
-                ));
-
-            console.log(dinos);
-        }
-        populateDino();
-
+    let dinos = []
+    const populateDino = async () => {
+        const dinos = await fetchDinoData();
+        dinos.map(dino => new Dino(
+            dino.species,
+            dino.weight,
+            dino.height,
+            dino.diet,
+            dino.where, 
+            dino.when,
+        ));
+        return dinos;
+    }
 
     // Create Human Object
     function human(name, weight, height ){
