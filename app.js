@@ -10,15 +10,15 @@
 * @param {string} fact       - An interesting fact of the organism
 */
     // Create Dino Constructor
-    function Organism(species, weight, height, diet, where, when, fact)
+    function Organism(species, weight, height, diet, where, when)
     {
         this.species = species,
         this.weight = weight,
         this.height = height,
         this.diet = diet,
         this.where = where,
-        this.when = when,
-        this.fact = fact
+        this.when = when
+
     }
 
     // Create Dino Objects
