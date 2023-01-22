@@ -17,8 +17,8 @@
         this.height = height,
         this.diet = diet,
         this.where = where,
-        this.when = when
-
+        this.when = when,
+        this.image = "images/" + species.toLowerCase() + '.png';
     }
 
     // Create Dino Objects
