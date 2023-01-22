@@ -1,4 +1,14 @@
-
+/*
+* Represent a dinosaur
+* @constructor
+* @param {string} species    - Type of species
+* @param {number} weight     - Total mass of organism
+* @param {number} height     - Total height of organism
+* @param {string} diet       - The diet of the said organism 
+* @param {string} where      - Location of the said organism
+* @param {string} when       - Period of existence
+* @param {string} fact       - An interesting fact of the organism
+*/
     // Create Dino Constructor
     function Organism(species, weight, height, diet, where, when, fact)
     {
