@@ -22,7 +22,6 @@
     }
 
     // Create Dino Objects
-
     function Dino(species, weight, height, facts) {
         Organism.call(this, species, weight, height, facts);
     }
@@ -31,10 +30,20 @@
 
     //fetch dino data from server
     const fetchDinoData = async () => {
-        const res = await fetch('https://dino-infographics.herokuapp.com/Dinos');
-        const data = await res.json();
-        return data;
-        };
+        try{
+            const fetchData = await fetch('https://dino-infographics.herokuapp.com/Dinos');
+            if(fetchData.ok){
+                const data = await res.json();
+                return data;
+            }
+            else {
+                throw new Error("Error fetching data from API.");
+            }
+        }
+        catch(error){
+            console.log(error);
+        }
+    };
 
         const populateDino = async () => {
             let dinos = await fetchDinoData();
