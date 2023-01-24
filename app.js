@@ -10,7 +10,7 @@
 * @param {string} fact       - An interesting fact of the organism
 */
     // Create Dino Constructor
-    function Organism(species, weight, height, diet, where, when)
+    function Organism(species, weight, height, diet, where, when, facts)
     {
         this.species = species,
         this.weight = weight,
@@ -18,9 +18,14 @@
         this.diet = diet,
         this.where = where,
         this.when = when,
+        this.facts = facts,
         this.image = "images/" + species.toLowerCase() + '.png';
     }
 
+    Animal.prototype.newFact = function (fact){
+      [...this.fact,fact];
+    }
+    
     // Create Dino Objects
     function Dino(species, weight, height, facts) {
         Organism.call(this, species, weight, height, facts);
@@ -91,9 +96,13 @@
     button.onclick(getHuman());
 
 
-    // Create Dino Compare Method 1
+    // Create Dino Compare Method - Species
     // NOTE: Weight in JSON file is in lbs, height in inches. 
-
+    Animal.prototype.compareSpecies = function (species){
+      let fact; 
+      let speciesMatch = this.species == species;
+      speciesMatch ? fact = 'We are of the same species': fact = 'We are not of the same species';
+    }
     
     // Create Dino Compare Method 2
     // NOTE: Weight in JSON file is in lbs, height in inches.
