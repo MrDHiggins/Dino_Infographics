@@ -85,33 +85,6 @@
     }
 
 
-    // const getHuman = (function (){
-    //     const getInputEl = {
-    //         getId: function(El_id){
-    //             return document.getElementById(El_id).value;
-    //         }
-    //     }
-        
-    //     function setName() {
-    //         let name = getInputEl.getId('name');
-    //         return name;
-    //     }
-
-    //     function setHeight(){
-    //         let cm = getInputEl.getId('cm');
-    //         return cm;
-    //     }
-
-    //     function setWeight() {
-    //         let weight = getInputEl.getId('weight');
-    //         return weight;
-    //     }
-
-    //     // Leave console.log() for further testing and development
-    //     console.log(new human(setName(), setWeight(), setHeight()));
-    //     // , setWeight(), setHeight()
-    //     // return new human(setName(), setHeight(), setHeight());
-    // })
 
     //The below onClick method is for further testing and development
     let button = document.getElementById('btn');
