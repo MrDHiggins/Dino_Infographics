@@ -27,9 +27,9 @@
     }
 
     // Create Dino Objects
-    function Dino(species, weight, height, facts) {
-        Organism.call(this, species, weight, height, facts);
-    }
+    function Dino(species, weight, height, diet, where, when, facts) {
+      Organism.call(this, species, weight, height, diet, where, when, facts);
+  }
     Dino.prototype = Object.create(Organism.prototype);
     Dino.prototype.constructor = Dino;
 
