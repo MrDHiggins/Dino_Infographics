@@ -22,8 +22,8 @@
         this.image = `images/${species.toLowerCase()}.png`;
     }
 
-    Animal.prototype.newFact = function (fact){
-      [...this.fact,fact];
+    Organism.prototype.newFact = function (fact){
+      this.facts = [...this.facts,fact];
     }
 
     // Create Dino Objects
