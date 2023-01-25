@@ -65,6 +65,7 @@
         return dinos;
     }
 
+    populateDino();
     // Create Human Object
     function human(name, weight, height ){
       Organism.call(this, 'human', weight, height);
@@ -89,7 +90,7 @@
             return new human(name, cm, weight);
         })();
     }
-
+    getHuman();
 
 
     //The below onClick method is for further testing and development
