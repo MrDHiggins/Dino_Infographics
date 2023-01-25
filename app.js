@@ -67,9 +67,9 @@
 
     // Create Human Object
     function human(name, weight, height ){
-        Organism.call(this, "Homo Sapien", weight, height);
-        this.name = name;
-    }
+      Organism.call(this, 'human', weight, height);
+      this.name = name;
+  }
     human.prototype = Object.create(Organism.prototype);
     human.prototype.constructor = human;
 
