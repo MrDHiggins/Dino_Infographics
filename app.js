@@ -28,8 +28,8 @@
 
     // Create Dino Objects
     function Dino(species, weight, height, diet, where, when, facts) {
-      Organism.call(this, species, weight, height, diet, where, when, facts);
-  }
+        Organism.call(this, species, weight, height, diet, where, when, facts);
+    }
     Dino.prototype = Object.create(Organism.prototype);
     Dino.prototype.constructor = Dino;
 
@@ -62,73 +62,135 @@
             dino.when,
             dino.facts
         ));
+        console.log(dinos);
         return dinos;
     }
-
+    
     populateDino();
     // Create Human Object
     function human(name, weight, height ){
-      Organism.call(this, 'human', weight, height);
-      this.name = name;
-  }
+        Organism.call(this, 'human', weight, height);
+        this.name = name;
+    }
     human.prototype = Object.create(Organism.prototype);
     human.prototype.constructor = human;
 
-    // Use IIFE to get human data from form
-    function getHuman(){
-        const getInputEl = {
-            getId: function(El_id){
-                return document.getElementById(El_id).value;
-            }
+   // Use IIFE to get human data from form
+   function getHuman(){
+    const getInputEl = {
+        getId: function(El_id){
+            return document.getElementById(El_id).value;
         }
-
-        return (function(){
-            let name = getInputEl.getId('name');
-            let cm =  getInputEl.getId('cm');
-            let weight =  getInputEl.getId('weight');
-
-            return new human(name, cm, weight);
-        })();
     }
-    getHuman();
+
+    return (function(){
+        let name = getInputEl.getId('name');
+        let cm =  getInputEl.getId('cm');
+        let weight =  getInputEl.getId('weight');
+
+        return new human(name, cm, weight);
+    })();
+}
+getHuman();
+//The below onClick method is for further testing and development
 
 
-    //The below onClick method is for further testing and development
-    let button = document.getElementById('btn');
-    button.onclick(getHuman());
+// Create Dino Compare Method - Species
+// NOTE: Weight in JSON file is in lbs, height in inches. 
+Organism.prototype.compareSpecies = function (compareSpecies) {
+  let fact;
+  let speciesMatch = this.species == compareSpecies;
+  speciesMatch ? fact = 'We are of the same species' : fact = `I am of ${this.species} and you're of ${compareSpecies}`;
+  this.newFact(fact);
+}
 
+// Create Dino Compare Method - Weight
+// NOTE: Weight in JSON file is in lbs, height in inches.
+Organism.prototype.compareWeight = function (compareWeight) {
+  let fact;
+  let weightComparison = this.weight == compareWeight;
+  weightComparison ? fact = `We are of the same weight` : weightComparison = this.weight < compareWeight ? fact = `${this.species} weighs less than ${compareWeight}` : fact = `${this.species} weighs more than ${compareWeight}`;
+  this.newFact(fact);
+}
 
-    // Create Dino Compare Method - Species
-    // NOTE: Weight in JSON file is in lbs, height in inches. 
-    Organism.prototype.compareSpecies = function (compareSpecies){
-      let fact; 
-      let speciesMatch = this.species == compareSpecies;
-      speciesMatch ? fact = 'We are of the same species': fact = `I am of ${species} and you're of ${this.species}`;
-
-      this.newFact(fact);
-    }
-    
-    // Create Dino Compare Method - Weight
-    // NOTE: Weight in JSON file is in lbs, height in inches.
-    Organism.prototype.compareWeight = function (compareWeight){
-      let fact;
-      let weightComparison = this.weight == compareWeight;
-      weightComparison ? fact = `We are of the same weight` : weightComparison = this.weight < weight ? fact = `${this.species} weighs less than ${species}` : fact = `${this.species} weighs more than ${species}`;
-
-      this.newFact(fact);
-    }
+// Create Dino Compare Method - Height
+// NOTE: Weight in JSON file is in lbs, height in inches.
+Organism.prototype.compareHeight = function (compareHeight) {
+  let fact;
+  let heightComparison = this.height == compareHeight;
+  heightComparison ? fact = `We are of the same height` : heightComparison = this.height < compareHeight ? fact = `${this.species} is shorter than ${compareHeight}` : fact = `${this.species} is taller than ${compareHeight}`;
+  this.newFact(fact);
+}
     
     // Create Dino Compare Method 3
     // NOTE: Weight in JSON file is in lbs, height in inches.
-    Organism.prototype.compareHeight = function (compareHeight) {
-      let fact;
-      let heightComparison = this.height == compareHeight;
-      heightComparison ? fact = `We are of the same height` : heightComparison = this.height < compareHeight ? fact = `${this.species} is shorter than ${compareHeight}` : fact = `${this.species} is taller than ${compareHeight}`;
-      this.newFact(fact);
-    }
+
 
     // Generate Tiles for each Dino in Array
   
         // Add tiles to DOM
 
     // Remove form from screen
+
+
+    //To-Do
+    // turn the below code [lin 138-168] into a function
+    //Invoke the function
+    document.getElementById("btn")
+    .addEventListener("click", function () {
+        const human = getHuman();
+        console.log(human);
+        dinos.forEach(dino => {
+            dino.compareSpecies(human.species);
+            dino.compareWeight(human.weight);
+            // dino.compareWeightAndAddFact(human.weight);
+        });
+        // Hide Form from UI
+        document.getElementById("dino-compare").style.display = "none";
+        // Generate Grids and add back to DOM
+        for (let index in dinos) {
+          let dino = dinos[index];
+          // To-Dp
+          //add random fact generator method, and iterate through
+          //Infographic must display organism attributes onHover of grid-item
+            let gridItemEl = populateGridItem(dino.species, dino.image, dino.fact);
+
+            document.getElementById("grid")
+                .appendChild(gridItemEl);
+            if (index == 3) {
+              console.log(index);
+                // insert human tile at center
+                let humanTileDiv = populateGridItem(human.species, human.image);
+
+                document.getElementById("grid")
+                    .appendChild(humanTileDiv);
+            }
+        }
+    });
+
+    
+    function populateGridItem(species, image, fact) {
+      // const grid = document.getElementById("grid");
+      let gridItemEl = document.createElement("div");
+      gridItemEl.className = "grid-item";
+  
+      // add species
+      let speciesDiv = document.createElement("h3");
+      speciesDiv.innerText = species;
+      gridItemEl.appendChild(speciesDiv);
+  
+      // add image
+      let imageDiv = document.createElement("img");
+      imageDiv.src = image;
+      gridItemEl.appendChild(imageDiv);
+  
+      // add fact
+      if (fact) {
+          // for humans, facts are not necessary
+          let factFiv = document.createElement("p");
+          factFiv.innerText = fact;
+          gridItemEl.appendChild(factFiv);
+      }
+      // grid.appendChild(gridItemEl);
+      return gridItemEl;
+  }
