@@ -36,10 +36,10 @@
     //fetch dino data from server
     const fetchDinoData = async () => {
       try {
-        const fetchData = await fetch(
+        const res = await fetch(
           "https://dino-infographics.herokuapp.com/Dinos"
         );
-        if (fetchData.ok) {
+        if (res.ok) {
           const data = await res.json();
           return data;
         } else {
