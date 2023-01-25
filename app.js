@@ -52,14 +52,15 @@
 
     let dinos = []
     const populateDino = async () => {
-        const dinos = await fetchDinoData();
-        dinos.map(dino => new Dino(
+        const data = await fetchDinoData();
+        dinos = data.map(dino => new Dino(
             dino.species,
             dino.weight,
             dino.height,
             dino.diet,
             dino.where, 
             dino.when,
+            dino.facts
         ));
         return dinos;
     }
