@@ -100,19 +100,19 @@
 
     // Create Dino Compare Method - Species
     // NOTE: Weight in JSON file is in lbs, height in inches. 
-    Animal.prototype.compareSpecies = function (species){
+    Organism.prototype.compareSpecies = function (compareSpecies){
       let fact; 
-      let speciesMatch = this.species == species;
+      let speciesMatch = this.species == compareSpecies;
       speciesMatch ? fact = 'We are of the same species': fact = `I am of ${species} and you're of ${this.species}`;
 
       this.newFact(fact);
     }
     
-    // Create Dino Compare Method - Weight and height
+    // Create Dino Compare Method - Weight
     // NOTE: Weight in JSON file is in lbs, height in inches.
-    Animal.prototype.compareWeight= function (weight){
+    Organism.prototype.compareWeight = function (compareWeight){
       let fact;
-      let weightComparison = this.weight == weight;
+      let weightComparison = this.weight == compareWeight;
       weightComparison ? fact = `We are of the same weight` : weightComparison = this.weight < weight ? fact = `${this.species} weighs less than ${species}` : fact = `${this.species} weighs more than ${species}`;
 
       this.newFact(fact);
@@ -120,7 +120,12 @@
     
     // Create Dino Compare Method 3
     // NOTE: Weight in JSON file is in lbs, height in inches.
-
+    Organism.prototype.compareHeight = function (compareHeight) {
+      let fact;
+      let heightComparison = this.height == compareHeight;
+      heightComparison ? fact = `We are of the same height` : heightComparison = this.height < compareHeight ? fact = `${this.species} is shorter than ${compareHeight}` : fact = `${this.species} is taller than ${compareHeight}`;
+      this.newFact(fact);
+    }
 
     // Generate Tiles for each Dino in Array
   
