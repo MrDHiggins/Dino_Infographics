@@ -18,8 +18,8 @@
         this.diet = diet,
         this.where = where,
         this.when = when,
-        this.facts = facts,
-        this.image = "images/" + species.toLowerCase() + '.png';
+        this.facts = facts ? [...facts] : [],
+        this.image = `images/${species.toLowerCase()}.png`;
     }
 
     Animal.prototype.newFact = function (fact){
