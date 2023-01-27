@@ -37,21 +37,24 @@ p {
 
 /* Grid Styles */
 #flip-card-grid {
+    position: relative;
     background: #fff url(images/tracks.png) no-repeat;
     background-size: cover;
     display: flex;
-    margin: 2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     flex-wrap: wrap;
-    height:100%;
+    perspective: 1000px;
+    /* height:100%; */
 }
 
 .flip-card-item {
     position: relative;
     box-sizing: border-box;
-    /* width: 100%; */
+    width: 100%;
     height: 100%;
-    /* text-align: center; */
+    text-align: center;
     transition: transform 1.5s; 
     /* transform-style: preserve-3d; */
     /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);   */
@@ -62,17 +65,21 @@ p {
     transition: transform 1.6s;
     /* transform-style: preserve-3d; */
     box-sizing: border-box;
-    box-shadow: 8px 6px 2px 0 rgba(0,0,0,0.4);
+    /* box-shadow: 8px 6px 2px 0 rgba(0,0,0,0.4); */
     /* width: 100%; */
     height: 100%;
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
   }
 
-  #flip-card-grid .flip-card-item-front:hover {
+  .flip-card-item .flip-card-item-front:hover {
     transform: rotateY(180deg);
   }
 
+.flip-card-item-back:hover{
+    background-color: #2980b9;
+    color: white;
+    transform: rotateY(180deg);
+  }
   
 .flip-card-item:nth-child(1) {
     background: #009687f5;
@@ -127,6 +134,19 @@ p {
 }
 
 .flip-card-item-front p {
+    background: rgba(000,000,000, .3);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 0.8em 0.8em 1.8em;
+    margin:0;
+    box-sizing: border-box;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #fff;
+}
+
+.flip-card-item-back p {
     background: rgba(000,000,000, .3);
     position: absolute;
     bottom: 0;

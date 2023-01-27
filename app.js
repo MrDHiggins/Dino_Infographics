@@ -121,6 +121,11 @@ Organism.prototype.compareHeight = function (compareHeight) {
   heightComparison ? fact = `We are of the same height` : heightComparison = this.height < compareHeight ? fact = `${this.species} is shorter than ${compareHeight}` : fact = `${this.species} is taller than ${compareHeight}`;
   this.newFact(fact);
 }
+
+Organism.prototype.populateRandomFact = function(){
+  let index = Math.floor(Math.random() * 10) % this.facts.length;
+  return this.facts[index];
+}
     
     // Create Dino Compare Method 3
     // NOTE: Weight in JSON file is in lbs, height in inches.
@@ -152,8 +157,9 @@ Organism.prototype.compareHeight = function (compareHeight) {
           let dino = dinos[index];
           // To-Dp
           //add random fact generator method, and iterate through
+          let fact = dino.populateRandomFact();
           //Infographic must display organism attributes onHover of grid-item
-            let gridItemEl = populateGridItem(dino.species, dino.image, dino.fact);
+            let gridItemEl = populateGridItem(dino.species, dino.image, fact);
 
             document.getElementById("flip-card-grid")
                 .appendChild(gridItemEl);
@@ -192,14 +198,21 @@ Organism.prototype.compareHeight = function (compareHeight) {
       let imageDiv = document.createElement("img");
       imageDiv.src = image;
       itemFrontDiv.appendChild(imageDiv);
+
+      //Back of flip card
+      let itemBackDiv = document.createElement('div');
+      itemBackDiv.className = 'flip-card-item-back';
+      gridItemEl.appendChild(itemBackDiv);
+
+
   
+
       // add fact
-      if (fact) {
-          // for humans, facts are not necessary
-          let factFiv = document.createElement("p");
-          factFiv.innerText = fact;
-          gridItemEl.appendChild(factFiv);
-      }
+      // for humans, facts are not necessary
+      let factFiv = document.createElement("p");
+      factFiv.innerText = fact;
+      itemBackDiv.appendChild(factFiv);
+      
       // grid.appendChild(gridItemEl);
       return gridItemEl;
   }
