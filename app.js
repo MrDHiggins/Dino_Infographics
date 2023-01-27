@@ -155,14 +155,14 @@ Organism.prototype.compareHeight = function (compareHeight) {
           //Infographic must display organism attributes onHover of grid-item
             let gridItemEl = populateGridItem(dino.species, dino.image, dino.fact);
 
-            document.getElementById("grid")
+            document.getElementById("flip-card-grid")
                 .appendChild(gridItemEl);
             if (index == 3) {
               console.log(index);
                 // insert human tile at center
                 let humanTileDiv = populateGridItem(human.species, human.image);
 
-                document.getElementById("grid")
+                document.getElementById("flip-card-grid")
                     .appendChild(humanTileDiv);
             }
         }
@@ -171,18 +171,27 @@ Organism.prototype.compareHeight = function (compareHeight) {
     
     function populateGridItem(species, image, fact) {
       // const grid = document.getElementById("grid");
+
+      //flip card inner
+      // let gridItemEl = document.createElement("div");
+      // gridItemEl.className = "flip-card-inner";
       let gridItemEl = document.createElement("div");
-      gridItemEl.className = "grid-item";
+      gridItemEl.className = "flip-card-item";
   
-      // add species
+      //add flip-card-item-front - show image
+      let itemFrontDiv = document.createElement('div');
+      itemFrontDiv.className = 'flip-card-item-front';
+      gridItemEl.appendChild(itemFrontDiv);
+
+      // add species - heading text
       let speciesDiv = document.createElement("h3");
       speciesDiv.innerText = species;
-      gridItemEl.appendChild(speciesDiv);
-  
+      itemFrontDiv.appendChild(speciesDiv);
+
       // add image
       let imageDiv = document.createElement("img");
       imageDiv.src = image;
-      gridItemEl.appendChild(imageDiv);
+      itemFrontDiv.appendChild(imageDiv);
   
       // add fact
       if (fact) {
