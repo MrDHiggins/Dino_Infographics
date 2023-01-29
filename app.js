@@ -137,10 +137,10 @@ Organism.prototype.populateRandomFact = function(){
 
     // Remove form from screen
 
-
     //To-Do
     // turn the below code [lin 138-168] into a function
     //Invoke the function
+    document.getElementById("flip-card").style.display = "none";
     document.getElementById("btn")
     .addEventListener("click", function () {
         const human = getHuman();
@@ -152,6 +152,7 @@ Organism.prototype.populateRandomFact = function(){
         });
         // Hide Form from UI
         document.getElementById("dino-compare").style.display = "none";
+        document.getElementById("flip-card").style.display = 'grid'
         // Generate Grids and add back to DOM
         for (let index in dinos) {
           let dino = dinos[index];
@@ -161,14 +162,14 @@ Organism.prototype.populateRandomFact = function(){
           //Infographic must display organism attributes onHover of grid-item
             let gridItemEl = populateGridItem(dino.species, dino.image, fact);
 
-            document.getElementById("flip-card-grid")
+            document.getElementById("flip-card")
                 .appendChild(gridItemEl);
             if (index == 3) {
               console.log(index);
                 // insert human tile at center
                 let humanTileDiv = populateGridItem(human.species, human.image);
 
-                document.getElementById("flip-card-grid")
+                document.getElementById("flip-card")
                     .appendChild(humanTileDiv);
             }
         }
@@ -182,11 +183,11 @@ Organism.prototype.populateRandomFact = function(){
       // let gridItemEl = document.createElement("div");
       // gridItemEl.className = "flip-card-inner";
       let gridItemEl = document.createElement("div");
-      gridItemEl.className = "flip-card-item";
+      gridItemEl.className = "flip-card-inner";
   
       //add flip-card-item-front - show image
       let itemFrontDiv = document.createElement('div');
-      itemFrontDiv.className = 'flip-card-item-front';
+      itemFrontDiv.className = 'flip-card-front';
       gridItemEl.appendChild(itemFrontDiv);
 
       // add species - heading text
@@ -201,11 +202,8 @@ Organism.prototype.populateRandomFact = function(){
 
       //Back of flip card
       let itemBackDiv = document.createElement('div');
-      itemBackDiv.className = 'flip-card-item-back';
+      itemBackDiv.className = 'flip-card-back';
       gridItemEl.appendChild(itemBackDiv);
-
-
-  
 
       // add fact
       // for humans, facts are not necessary
