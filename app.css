@@ -5,6 +5,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     text-align: center;
     min-height: 100vh;
+
 }
 
 h1 {
@@ -31,131 +32,141 @@ h3 {
     }
 }
 
-p {
+/* p {
     font-weight: 100;
-}
+} */
 
 /* Grid Styles */
-#flip-card-grid {
-    position: relative;
+#flip-card {
+    /* position: absolute; */
     background: #fff url(images/tracks.png) no-repeat;
     background-size: cover;
-    display: flex;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    margin:1em;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    flex-wrap: wrap;
     perspective: 1000px;
-    /* height:100%; */
+    height: 800px;
+    /* height: 50%; */
+    width: 90%;
+
 }
 
-.flip-card-item {
-    position: relative;
+.flip-card-inner {
+    /* position: relative; */
     box-sizing: border-box;
-    width: 100%;
-    height: 100%;
+    display: flex;
     text-align: center;
-    transition: transform 1.5s; 
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
     /* transform-style: preserve-3d; */
     /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);   */
 }
 
-.flip-card-item-front, .flip-card-item-back{
-    text-align: center;
-    transition: transform 1.6s;
-    /* transform-style: preserve-3d; */
-    box-sizing: border-box;
-    /* box-shadow: 8px 6px 2px 0 rgba(0,0,0,0.4); */
-    /* width: 100%; */
-    height: 100%;
-    backface-visibility: hidden;
-  }
-
-  .flip-card-item .flip-card-item-front:hover {
+#flip-card .flip-card-inner:hover {
     transform: rotateY(180deg);
   }
 
-.flip-card-item-back:hover{
-    background-color: #2980b9;
+.flip-card-front, .flip-card-back {
+position: absolute;
+height: 100%;
+backface-visibility: hidden;
+}
+
+  /* Style the back side */
+.flip-card-back {
     color: white;
     transform: rotateY(180deg);
   }
   
-.flip-card-item:nth-child(1) {
+.flip-card-inner:nth-child(1) {
     background: #009687f5;
 }
 
-.flip-card-item:nth-child(2) {
+.flip-card-inner:nth-child(2) {
     background: #dc7657f5;
 }
 
-.flip-card-item:nth-child(3) {
+.flip-card-inner:nth-child(3) {
     background: #4bb3c1fa;
 }
 
-.flip-card-item:nth-child(4) {
+.flip-card-inner:nth-child(4) {
     background: #fac069f9;
 }
 
-.flip-card-item:nth-child(5) {
+.flip-card-inner:nth-child(5) {
     background: #67a866f9;
 }
-.flip-card-item:nth-child(6){
+.flip-card-inner:nth-child(6){
     background: #b94169fa;
 }
 
-.flip-card-item:nth-child(7) {
+.flip-card-inner:nth-child(7) {
     background: #7f62b3fa;
 }
 
-.flip-card-item:nth-child(8){
+.flip-card-inner:nth-child(8){
     background: #9fc376f9;
 }
 
-.flip-card-item:nth-child(9){
+.flip-card-inner:nth-child(9){
     background: #677bcbfa;
 }
 
-@media (min-width: 550px) {
-    .flip-card-item {
-        width: calc(100% / 3);
-        height: calc(100% /3);
-    }
-}
 
-.flip-card-item-front h3 {
-    font-size: 2em;
+.flip-card-front h3 {
+    display: flex;
+    justify-content: center;
+    flex:2;
     color: #eee;
 }
 
-.flip-card-item-front img {
-    max-width: 100%;
-    padding-bottom: 1em;
+.flip-card-front img {
+    /* display: flex; */
+    width: 40%;
+    align-items: center;
+    /* position: relative; */
+    justify-content: center;
+    /* flex:1; */
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* padding-bottom: 1em; */
 }
 
-.flip-card-item-front p {
+.flip-card-front p {
     background: rgba(000,000,000, .3);
     position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 0.8em 0.8em 1.8em;
-    margin:0;
+    /* bottom: 0; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* width: 100%;
+    height: 20%; */
+    /* padding: 0.8em 0.8em 1.8em; */
+    /* margin:0; */
     box-sizing: border-box;
     font-size: 1.2em;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: #fff;
 }
 
-.flip-card-item-back p {
+.flip-card-back p {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     background: rgba(000,000,000, .3);
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 0.8em 0.8em 1.8em;
-    margin:0;
     box-sizing: border-box;
     font-size: 1.2em;
-    font-weight: 600;
     color: #fff;
 }
 
