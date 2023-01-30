@@ -1,14 +1,3 @@
-/*
-* Represent a dinosaur
-* @constructor
-* @param {string} species    - Type of species
-* @param {number} weight     - Total mass of organism
-* @param {number} height     - Total height of organism
-* @param {string} diet       - The diet of the said organism 
-* @param {string} where      - Location of the said organism
-* @param {string} when       - Period of existence
-* @param {string} fact       - An interesting fact of the organism
-*/
     // Create Dino Constructor
     function Organism(species, weight, height, diet, where, when, facts)
     {
@@ -130,13 +119,6 @@ Organism.prototype.populateRandomFact = function(){
     // Create Dino Compare Method 3
     // NOTE: Weight in JSON file is in lbs, height in inches.
 
-
-    // Generate Tiles for each Dino in Array
-  
-        // Add tiles to DOM
-
-    // Remove form from screen
-
     //To-Do
     // turn the below code [lin 138-168] into a function
     //Invoke the function
@@ -177,40 +159,28 @@ Organism.prototype.populateRandomFact = function(){
 
     
     function populateGridItem(species, image, fact) {
-      // const grid = document.getElementById("grid");
-
-      //flip card inner
-      // let gridItemEl = document.createElement("div");
-      // gridItemEl.className = "flip-card-inner";
       let gridItemEl = document.createElement("div");
       gridItemEl.className = "flip-card-inner";
   
-      //add flip-card-item-front - show image
       let itemFrontDiv = document.createElement('div');
       itemFrontDiv.className = 'flip-card-front';
       gridItemEl.appendChild(itemFrontDiv);
 
-      // add species - heading text
       let speciesDiv = document.createElement("h3");
       speciesDiv.innerText = species;
       itemFrontDiv.appendChild(speciesDiv);
 
-      // add image
       let imageDiv = document.createElement("img");
       imageDiv.src = image;
       itemFrontDiv.appendChild(imageDiv);
 
-      //Back of flip card
       let itemBackDiv = document.createElement('div');
       itemBackDiv.className = 'flip-card-back';
       gridItemEl.appendChild(itemBackDiv);
 
-      // add fact
-      // for humans, facts are not necessary
       let factFiv = document.createElement("p");
       factFiv.innerText = fact;
       itemBackDiv.appendChild(factFiv);
       
-      // grid.appendChild(gridItemEl);
       return gridItemEl;
   }
