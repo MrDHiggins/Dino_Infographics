@@ -5,7 +5,6 @@ body {
     font-family: 'Open Sans', sans-serif;
     text-align: center;
     min-height: 100vh;
-
 }
 
 h1 {
@@ -32,39 +31,34 @@ h3 {
     }
 }
 
-/* p {
-    font-weight: 100;
-} */
-
 /* Grid Styles */
 #flip-card {
-    /* position: absolute; */
+    position: relative;
     background: #fff url(images/tracks.png) no-repeat;
     background-size: cover;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    margin:1em;
+    margin:auto;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     perspective: 1000px;
     height: 800px;
-    /* height: 50%; */
     width: 90%;
-
 }
 
 .flip-card-inner {
-    /* position: relative; */
+    position: relative;
     box-sizing: border-box;
     display: flex;
+    flex-direction: column;
     text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
     height: 100%;
     align-items: center;
     justify-content: center;
-    /* transform-style: preserve-3d; */
-    /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);   */
+    
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);  
 }
 
 #flip-card .flip-card-inner:hover {
