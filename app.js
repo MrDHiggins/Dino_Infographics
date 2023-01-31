@@ -72,12 +72,57 @@
         }
     }
 
+    const dinoConversion = {
+      getweightUnit: function(){
+        let getUnit = document.querySelectorAll('input[type=radio]');
+        const b = [...getUnit].forEach((unitEl) => {
+          if(unitEl.checked){
+            return this.getWeightConversion(unitEl.id);
+          }
+        });
+      },
+      getWeightConversion: function(measurement){
+        measurement.toString();
+        if(measurement !== 'lbs'){
+          return dinos.weight / 2205;
+        }
+      },
+      calculateTotalMass: function(){
+        let weightValue = getInputEl.getId('weight');
+        weightValue =  dinoConversion.getweightUnit();
+        return +weightValue;
+      }
+
+    }
+    
+    // const getweightUnit = () => {
+    //   let getUnit = document.querySelectorAll('input[type=radio]');
+    //   const b = [...getUnit].forEach((unitEl) => {
+    //     if(unitEl.checked){
+    //       return this.getWeightConversion(unitEl.id);
+    //     }
+    //   });
+    // }
+
+    // getWeightConversion = (measurement) => {
+    //   measurement.toString();
+    //   if(measurement !== 'lbs'){
+    //     return dinos.weight / 2205;
+    //   }
+    // }
+
+    // function calculateTotalMass(){
+    //   let weightValue = getInputEl.getId('weight');
+    //   weightValue =  getweightUnit();
+    //   return +weightValue;
+    // }
+
     return (function(){
         let name = getInputEl.getId('name');
         let cm =  getInputEl.getId('cm');
-        let weight =  getInputEl.getId('weight');
+        let weight = dinoConversion.calculateTotalMass();
 
-        return new human(name, cm, weight);
+        return new human(name, +weight, cm );
     })();
 }
 getHuman();
@@ -98,7 +143,7 @@ Organism.prototype.compareSpecies = function (compareSpecies) {
 Organism.prototype.compareWeight = function (compareWeight) {
   let fact;
   let weightComparison = this.weight == compareWeight;
-  weightComparison ? fact = `We are of the same weight` : weightComparison = this.weight < compareWeight ? fact = `${this.species} weighs less than ${compareWeight}` : fact = `${this.species} weighs more than ${compareWeight}`;
+  weightComparison ? fact = `We are of the same weight` : weightComparison = this.weight < compareWeight ? fact = `${this.species} weighs  ${compareWeight - this.weight} less than your weight of ${compareWeight}` : fact = `${this.species} weighs more than you by ${this.weight - compareWeight}`;
   this.newFact(fact);
 }
 
