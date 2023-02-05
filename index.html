@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="text/javascript">
-        function getDinoData(){
-            let dinoPromise = fetch('https://dino-infographics.herokuapp.com/Dinos');
-            console.log(dinoPromise);
-        };
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -39,12 +33,12 @@
                 <input id="weight" class="ffield__short" type="number" name="weight">
                 <label>
                     Lbs: 
-                    <input type="radio" id="lbs" name="lbs"/>
+                    <input type="radio" id="lbs" name="weightUnit"/>
                 </label>
 
                 <label>
                     KGs:
-                    <input type="radio" id="kg" name="kg"/>
+                    <input type="radio" id="kg" name="weightUnit"/>
                 </label>  
             <p>Diet:</p>
             <select id="diet" class="form-field__full" name="diet">
