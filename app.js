@@ -210,10 +210,13 @@ Organism.compareOrganisms = function (org1, org2) {
                     .appendChild(humanTileDiv);
             }
         }
+        populateResetButton();
+        clearComparison();
     });
 
     
     function populateGridItem(species, image, fact) {
+
       let gridItemEl = document.createElement("div");
       gridItemEl.className = "flip-card-inner";
   
@@ -239,3 +242,33 @@ Organism.compareOrganisms = function (org1, org2) {
       
       return gridItemEl;
   }
+
+  function populateResetButton(){
+    
+    let gridDiv = document.getElementById('grid');
+
+    let resetDiv = document.createElement('div');
+    resetDiv.id = 'reset';
+    gridDiv.appendChild(resetDiv);
+
+    let clearBtn = document.createElement('div');
+    clearBtn.id = 'clearBtn';
+    clearBtn.innerHTML = 'Reset';
+    
+    resetDiv.appendChild(clearBtn);
+
+    return gridDiv;
+  }
+  function clearComparison(){
+    clearBtn.addEventListener('click',pageReload);
+  }
+
+  function pageReload(){
+    window.location.reload();
+  }
+
+  clearComparison();
+
+
+
+
