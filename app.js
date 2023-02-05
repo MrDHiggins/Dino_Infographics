@@ -69,63 +69,53 @@
     const getInputEl = {
         getId: function(El_id){
             return document.getElementById(El_id).value;
-        }
+        },
+        // calculateTotalMass: function(){
+        //   let weightValue = getInputEl.getId('weight');
+        //   // let selectedWeight = dinoConversion.getweightUnit();
+        //   // weightValue = selectedWeight[0] + weightValue;
+        //   return weightValue;
+        // }
     }
 
     const dinoConversion = {
       getweightUnit: function(){
         let getUnit = document.querySelectorAll('input[type=radio]');
-        const b = [...getUnit].forEach((unitEl) => {
-          if(unitEl.checked){
-            return this.getWeightConversion(unitEl.id);
-          }
-        });
+        const selectedWeightUnit = [...getUnit].filter(unitEl => unitEl.checked)
+          .map(unitEl => this.getWeightConversion(unitEl.id));
+      
+        return selectedWeightUnit;
       },
       getWeightConversion: function(measurement){
         measurement.toString();
         if(measurement !== 'lbs'){
-          return dinos.weight / 2205;
+          dinos = [...dinos],
+          // return dinos.weight / 2205;
+          dinos.map(dino => {
+            dino.weight = Math.floor(dino.weight / 2,205);
+          })
+          return dinos;
         }
       },
-      calculateTotalMass: function(){
-        let weightValue = getInputEl.getId('weight');
-        weightValue =  dinoConversion.getweightUnit();
-        return +weightValue;
-      }
-
     }
+
+    const getDinoWeight = () => {
+        let newWeight = dinoConversion.getweightUnit();
+        return newWeight
+    }
+
+    getDinoWeight();
     
-    // const getweightUnit = () => {
-    //   let getUnit = document.querySelectorAll('input[type=radio]');
-    //   const b = [...getUnit].forEach((unitEl) => {
-    //     if(unitEl.checked){
-    //       return this.getWeightConversion(unitEl.id);
-    //     }
-    //   });
-    // }
-
-    // getWeightConversion = (measurement) => {
-    //   measurement.toString();
-    //   if(measurement !== 'lbs'){
-    //     return dinos.weight / 2205;
-    //   }
-    // }
-
-    // function calculateTotalMass(){
-    //   let weightValue = getInputEl.getId('weight');
-    //   weightValue =  getweightUnit();
-    //   return +weightValue;
-    // }
-
     return (function(){
         let name = getInputEl.getId('name');
+        let weight = getInputEl.getId('weight');
         let cm =  getInputEl.getId('cm');
-        let weight = dinoConversion.calculateTotalMass();
+        
 
         return new human(name, +weight, cm );
     })();
 }
-getHuman();
+// getHuman();
 //The below onClick method is for further testing and development
 
 
@@ -160,6 +150,28 @@ Organism.prototype.populateRandomFact = function(){
   let index = Math.floor(Math.random() * 10) % this.facts.length;
   return this.facts[index];
 }
+
+// Create Dino Compare Method - All
+Organism.prototype.compareAll = function (compareSpecies, compareWeight, compareHeight) {
+  this.compareSpecies(compareSpecies);
+  this.compareWeight(compareWeight);
+  this.compareHeight(compareHeight);
+  }
+
+
+// Create Comparison Method - Pass in 2 Organisms
+Organism.compareOrganisms = function (org1, org2) {
+  org1.compareAll(
+    org2.species,
+    org2.weight,
+    org2.height,
+  );
+  org2.compareAll(
+    org1.species,
+    org1.weight,
+    org1.height,
+  );
+};
     
     // Create Dino Compare Method 3
     // NOTE: Weight in JSON file is in lbs, height in inches.
@@ -171,12 +183,10 @@ Organism.prototype.populateRandomFact = function(){
     document.getElementById("btn")
     .addEventListener("click", function () {
         const human = getHuman();
-        console.log(human);
-        dinos.forEach(dino => {
-            dino.compareSpecies(human.species);
-            dino.compareWeight(human.weight);
-            // dino.compareWeightAndAddFact(human.weight);
-        });
+        // console.log(human);
+        dinos.forEach((dino) => {
+          dino.compareAll(human.species, human.weight, human.height);
+        })
         // Hide Form from UI
         document.getElementById("dino-compare").style.display = "none";
         document.getElementById("flip-card").style.display = 'grid'
