@@ -99,7 +99,7 @@
       },
       getWeightConversion: function(measurement){
         measurement.toString();
-        let measurementUnit = measurement != 'lbs' ? dinoConversion.convertLbsToKg(2) : this;
+        let measurementUnit = measurement !== 'lbs' ? dinoConversion.convertLbsToKg(2) : this;
         return measurementUnit;
       },
       convertInchToCm: function(decimalPlacing){
