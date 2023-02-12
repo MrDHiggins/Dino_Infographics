@@ -25,10 +25,12 @@
     <form id="dino-compare">
         <div class="form-container">
             <p>Name:</p>
-            <input id="name" class="form-field__full" type="text" name="name">
+            <input id="name" class="form-field__full" type="text" name="name" required>
             <p>Height</p>
-            <label>Feet: <input id="feet" class="form-field__short" type="number" name="feet"></label>
-            <label>cm: <input id="cm" class="form-field__short" type="number" name="cm"></label>
+
+                <input id="height" class="form-field__short" type="number" name="height">
+                <label></label><input type="radio" id="FEET" name="heightUnit" value="Feet" innerHTML="feet"/>Feet: </label>
+                <label></label><input type="radio" id="CM" name="heightUnit" value="cm" innerHTML="cm"/>CM: </label>
             <p>Weight:</p>
                 <input id="weight" class="ffield__short" type="number" name="weight">
                 <label>
@@ -53,12 +55,9 @@
     <!-- .grid to attach tiles to -->
     <div id='grid'>
         <div id="flip-card">
-            
-        
         </div>
     </div>
     
-
 </body>
     <footer>
         <!-- Include information source -->
