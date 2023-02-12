@@ -183,7 +183,9 @@ Organism.prototype.compareHeight = function (compareHeight) {
 }
 
 Organism.prototype.populateRandomFact = function(){
-  let index = Math.floor(Math.random() * 10) % this.facts.length;
+  const array = new Uint32Array(1);
+  window.crypto.getRandomValues(array);
+  let index = array[0] % this.facts.length;
   return this.facts[index];
 }
 
