@@ -104,7 +104,7 @@
       },
       convertInchToCm: function(decimalPlacing){
         dinos = [...dinos]
-        dinos.map(dino => {
+        dinos.forEach((dino) => {
           return dino.height = ((dino.height) * (2.54)).toFixed(decimalPlacing);
         })
        return dinos
@@ -114,7 +114,7 @@
       convertInchToFeet: function(decimalPlacing){
         let inchDivision = 12;
         dinos = [...dinos],
-        dinos.map(dino => {
+        dinos.forEach((dino) => {
           return dino.height = ((dino.height / inchDivision).toFixed(decimalPlacing));
         })
         return dinos
