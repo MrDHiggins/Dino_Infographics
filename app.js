@@ -89,11 +89,11 @@
         return selectedHeightUnit;
       },
       convertLbsToKg: function(decimalPlacing){
-        // let kgDivision = 2.205
+        let kgDivision = 0.453
         dinos = [...dinos]
-        dinos.map(dino =>{
-          return dino.weight = ((dino.weight) / (0.453)).toFixed(decimalPlacing);
-        })
+        dinos.forEach((dino) => {
+          return dino.weight = ((dino.weight) / (kgDivision)).toFixed(decimalPlacing);
+        });
         
         return dinos
       },
@@ -103,7 +103,7 @@
         return measurementUnit;
       },
       convertInchToCm: function(decimalPlacing){
-        dinos = [...dinos],
+        dinos = [...dinos]
         dinos.map(dino => {
           return dino.height = ((dino.height) * (2.54)).toFixed(decimalPlacing);
         })
