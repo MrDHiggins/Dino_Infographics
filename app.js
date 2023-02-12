@@ -1,14 +1,14 @@
     // Create Dino Constructor
     function Organism(species, weight, height, diet, where, when, facts)
     {
-        this.species = species,
-        this.weight = weight,
-        this.height = height,
-        this.diet = diet,
-        this.where = where,
-        this.when = when,
-        this.facts = facts ? [...facts] : [],
-        this.image = `images/${species.toLowerCase()}.png`;
+        this.species = species
+        this.weight = weight
+        this.height = height
+        this.diet = diet
+        this.where = where
+        this.when = when
+        this.facts = facts ? [...facts] : []
+        this.image = `images/${species.toLowerCase()}.png`
     }
 
     Organism.prototype.newFact = function (fact){
@@ -92,7 +92,7 @@
         // let kgDivision = 2.205
         dinos = [...dinos]
         dinos.map(dino =>{
-          dino.weight = ((dino.weight) / (0.453)).toFixed(decimalPlacing);
+          dino.weight = dino.weight = ((dino.weight) / (0.453)).toFixed(decimalPlacing);
         })
         
         return dinos
