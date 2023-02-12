@@ -105,7 +105,8 @@
       convertInchToCm: function(decimalPlacing){
         dinos = [...dinos]
         dinos.forEach((dino) => {
-          return dino.height = ((dino.height) * (2.54)).toFixed(decimalPlacing);
+          let convertedInchToCM_Height = ((dino.height) * (2.54)).toFixed(decimalPlacing);
+          return convertedInchToCM_Height; 
         })
        return dinos
     },
