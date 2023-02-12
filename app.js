@@ -90,7 +90,7 @@
       },
       convertLbsToKg: function(decimalPlacing){
         // let kgDivision = 2.205
-        dinos = [...dinos],
+        dinos = [...dinos]
         dinos.map(dino =>{
           dino.weight = ((dino.weight) / (0.453)).toFixed(decimalPlacing);
         })
