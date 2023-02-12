@@ -92,20 +92,20 @@
         // let kgDivision = 2.205
         dinos = [...dinos]
         dinos.map(dino =>{
-          dino.weight = dino.weight = ((dino.weight) / (0.453)).toFixed(decimalPlacing);
+          return dino.weight = ((dino.weight) / (0.453)).toFixed(decimalPlacing);
         })
         
         return dinos
       },
       getWeightConversion: function(measurement){
         measurement.toString();
-        let measurementUnit = measurement != 'lbs' ? dinoConversion.convertLbsToKg(2) : false;
+        let measurementUnit = measurement != 'lbs' ? dinoConversion.convertLbsToKg(2) : this;
         return measurementUnit;
       },
       convertInchToCm: function(decimalPlacing){
         dinos = [...dinos],
         dinos.map(dino => {
-          dino.weight = ((dino.height * 2.54).toFixed(decimalPlacing));
+          return dino.height = ((dino.height) * (2.54)).toFixed(decimalPlacing);
         })
        return dinos
     },
@@ -115,7 +115,7 @@
         let inchDivision = 12;
         dinos = [...dinos],
         dinos.map(dino => {
-          dino.height = ((dino.height / inchDivision).toFixed(decimalPlacing));
+          return dino.height = ((dino.height / inchDivision).toFixed(decimalPlacing));
         })
         return dinos
       },
@@ -177,7 +177,7 @@ Organism.prototype.compareWeight = function (compareWeight) {
 Organism.prototype.compareHeight = function (compareHeight) {
   let fact;
   let heightComparison = this.height == compareHeight;
-  heightComparison ? fact = `We are of the same height` : heightComparison = this.height < compareHeight ? fact = `${this.species} is shorter than ${compareHeight + this.height}` : fact = `${this.species} is taller than you by ${this.height - compareHeight}`;
+  heightComparison ? fact = `We are of the same height` : heightComparison = this.height < compareHeight ? fact = `${this.species} is shorter than ${compareHeight + this.height}` : fact = `${this.species} is taller than you by ${compareHeight }`;
   this.newFact(fact);
 }
 
