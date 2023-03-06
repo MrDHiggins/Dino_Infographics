@@ -1,15 +1,14 @@
     // Create Dino Constructor
-    function Organism(species, weight, height, diet, where, when, facts)
-    {
-        this.species = species
-        this.weight = weight
-        this.height = height
-        this.diet = diet
-        this.where = where
-        this.when = when
-        this.facts = facts ? [...facts] : []
-        this.image = `images/${species.toLowerCase()}.png`
-    }
+    function Organism(species, weight, height, diet, where, when, facts) {
+      this.species = species
+      this.weight = weight
+      this.height = height
+      this.diet = diet
+      this.where = where
+      this.when = when
+      this.facts = facts ? [...facts] : []
+      this.image = `images/${species.toLowerCase()}.png`
+    }    
 
     Organism.prototype.newFact = function (fact){
       this.facts = [...this.facts,fact];
@@ -40,6 +39,8 @@
     };
 
     let dinos = []
+ 
+
     const populateDino = async () => {
         const data = await fetchDinoData();
         dinos = data.map(dino => new Dino(
@@ -56,132 +57,163 @@
         
     }
     
-    populateDino();
+    (async function() {
+      await populateDino();
+      // Other code that uses the dinos array
+    })();
+    
+    // populateDino();
     // Create Human Object
-    function human(name, weight, height ){
-        Organism.call(this, 'human', weight, height);
-        this.name = name;
+    function human(name, weight, height) {
+      Organism.call(this, 'human', parseInt(weight), parseInt(height));
+      this.name = name;
     }
+    
     human.prototype = Object.create(Organism.prototype);
     human.prototype.constructor = human;
+    
 
    // Use IIFE to get human data from form
-   function getHuman(){
-    const getInputEl = {
-        getId: function(El_id){
-            return document.getElementById(El_id).value;
-        },
-    }
-
-    const dinoConversion = {
-      getweightUnit: function(){
-        let getUnit = document.querySelectorAll('input[name=weightUnit]');
-        const selectedWeightUnit = [...getUnit].filter(unitEl => unitEl.checked)
-          .map(unitEl => this.getWeightConversion(unitEl.id));
-      
-        return selectedWeightUnit;
-      },
-      geHeighttUnit: function(){
-        let getHeighttUnit = document.querySelectorAll('input[name=heightUnit]');
-        const selectedHeightUnit = [...getHeighttUnit].filter(heightEl => heightEl.checked)
-        .map(heightEl => this.getHeightConversion(heightEl.id));
-
-        return selectedHeightUnit;
-      },
-      convertLbsToKg: function(decimalPlacing){
-        let kgDivision = 0.453
-        dinos = [...dinos]
-        dinos.forEach((dino) => {
-          return dino.weight = ((dino.weight) / (kgDivision)).toFixed(decimalPlacing);
-        });
-        
-        return dinos
-      },
-      getWeightConversion: function(measurement){
-        measurement.toString();
-        let measurementUnit = measurement !== 'lbs' ? dinoConversion.convertLbsToKg(2) : this;
-        return measurementUnit;
-      },
-      convertInchToCm: function(decimalPlacing){
-        dinos = [...dinos]
-        dinos.forEach((dino) => {
-          let convertedInchToCM_Height = ((dino.height) * (2.54)).toFixed(decimalPlacing);
-          return convertedInchToCM_Height; 
-        })
-       return dinos
+(function(){
+function getHuman(){
+  const getInputEl = {
+    getId: function(El_id){
+        return document.getElementById(El_id).value;
     },
-    
-      //height conversion
-      convertInchToFeet: function(decimalPlacing){
-        let inchDivision = 12;
-        dinos = [...dinos],
-        dinos.forEach((dino) => {
-          return dino.height = ((dino.height / inchDivision).toFixed(decimalPlacing));
-        })
-        return dinos
-      },
+  }
+
+  const dinoConversion = {
+    dinos: {...dinos},
+    getweightUnit: function(){
+      let getWeightUnit = document.querySelectorAll('input[name=weightUnit]');
+      const selectedWeightUnit = [...getWeightUnit].filter(unitEl => unitEl.checked)
+        .map(unitEl => this.getWeightConversion(unitEl.id));
+  
+      return selectedWeightUnit;
+    },
+    getHeightUnit: function(){
+      let getHeightUnit = document.querySelectorAll('input[name=heightUnit]');
+      const selectedHeightUnit = [...getHeightUnit].filter(heightEl => heightEl.checked).map(heightEl => this.getHeightConversion(heightEl.id));
+    },
+    convertLbsToKg: function(decimalPlacing){
+      const kgDivision = 2.205;
+      dinos = [...dinos];
+      dinos.forEach((dino) => {
+        return dino.weight = ((dino.weight / kgDivision)).toFixed(decimalPlacing);
+      });
+      return [...dinos];    
+    },
+  
+    convertKGToLbs: function(decimalPlacing){
+      let lbsDivision = 2.20;
+      dinos = [...dinos];
+      dinos.forEach((dino) => {
+        return dino.weight = (dino.weight* lbsDivision).toFixed(decimalPlacing);
+      });
       
-      getHeightConversion: function(heightMeasurement){
-        heightMeasurement.toString();
-        let selectedHeight = heightMeasurement != 'FEET' ? dinoConversion.convertInchToCm(2) : dinoConversion.convertInchToFeet(2);
-        return selectedHeight;
-      }
+      return [...dinos];
+    },
+  
+    getWeightConversion: function(measurement){
+      measurement.toString();
+      let measurementUnit = measurement !== 'lbs' ? dinoConversion.convertLbsToKg(2) : dinoConversion.convertKGToLbs(2);
+      return measurementUnit;
+    },
+  
+    convertInchToCm: function(decimalPlacing){
+      let cmDivision = 2.54;
+      dinos = [...dinos];
+      dinos.forEach((dino) => {
+        return dino.height = ((dino.height * cmDivision).toFixed(decimalPlacing));
+      })
+      return dinos;
+    },
+  
+    convertInchToFeet: function(decimalPlacing){
+      let inchDivision = 12;
+      dinos = [...dinos];
+      dinos.forEach((dino) => {
+        return dino.height = ((dino.height / inchDivision).toFixed(decimalPlacing));
+      })
+      return dinos
+    },
+  
+    getHeightConversion: function(heightMeasurement){
+      heightMeasurement.toString();
+      let selectedHeight = heightMeasurement !== 'FEET' ? dinoConversion.convertInchToCm(2) : dinoConversion.convertInchToFeet(2);
+      return selectedHeight;
+    } 
+  };
+  
+
+  const getDinoWeight = () => {
+    let newWeight = dinoConversion.getweightUnit();
+    return newWeight;
+  };
+  
+  const selectedWeight = getDinoWeight();
+
+  const getDinoHeight = () => {
+    let newHeight = dinoConversion.getHeightUnit();
+    return newHeight;
+  };
+   const selectedHeight = getDinoHeight();
+
+  const name = getInputEl.getId("name");
+  let weight = getInputEl.getId("weight");
+  if (selectedWeight === "lbs") {
+    weight = parseInt(weight) * 2.205;
+    weight = weight.toFixed(2) + " Lbs";
+  } else {
+    //weight = parseInt(weight) * 2.205;
+    weight = weight + " kg";
+  }
+
+  let height = getInputEl.getId("height");
+  if (selectedHeight !== "CM") {
+    height = parseInt(height) * 12;
+    height = height.toFixed(2) + " ft";
+  } else {
+    height = parseInt(height)
+    height = height.toFixed(2) + " cm";
+  }
+
+  const humanObj = new human(name, weight, height);
+
+
+  return humanObj;
     }
+    window.getHuman = getHuman; // export getHuman to the global scope
+})();
 
-    const getDinoWeight = () => {
-        let newWeight = dinoConversion.getweightUnit();
-        return newWeight
-    }
-    getDinoWeight();
-
-    const getDinoHeight = () => {
-      let newHeight = dinoConversion.geHeighttUnit();
-      return newHeight;
-    }
-
-    getDinoHeight();
-
-    
-    return (function(){
-        let name = getInputEl.getId('name');
-        let weight = getInputEl.getId('weight');
-        let height =  getInputEl.getId('height');
-        
-
-        return new human(name, +weight, height );
-    })();
-}
-// getHuman();
-//The below onClick method is for further testing and development
-
-
-// Create Dino Compare Method - Species
-// NOTE: Weight in JSON file is in lbs, height in inches. 
 Organism.prototype.compareSpecies = function (compareSpecies) {
-  let fact;
-  let speciesMatch = this.species == compareSpecies;
-  speciesMatch ? fact = 'We are of the same species' : fact = `I am of ${this.species} and you're of ${compareSpecies}`;
+  const fact = this.species === compareSpecies
+    ? 'We are of the same species'
+    : `I am a ${this.species} and you are a ${compareSpecies}`;
   this.newFact(fact);
-}
+};
 
 // Create Dino Compare Method - Weight
 // NOTE: Weight in JSON file is in lbs, height in inches.
 Organism.prototype.compareWeight = function (compareWeight) {
+  const weightUnit = getHuman().selectedWeight === "lbs" ? "lbs" : "kg";
   let fact;
-  let weightComparison = this.weight == compareWeight;
-  weightComparison ? fact = `We are of the same weight` : weightComparison = this.weight < compareWeight ? fact = `${this.species} weighs  ${compareWeight - this.weight} less than your weight of ${compareWeight}` : fact = `${this.species} weighs more than you by ${this.weight - compareWeight}`;
+  let weightComparison = parseInt(this.weight) == compareWeight;
+  weightComparison ? fact = `We are of the same weight` : weightComparison = this.weight < compareWeight ? fact = `${this.species} weighs  ${(compareWeight - this.weight) + weightUnit} less than your weight of ${compareWeight}` : fact = `${this.species} weighs more than you by ${(this.weight - compareWeight) + weightUnit}`;
   this.newFact(fact);
 }
 
 // Create Dino Compare Method - Height
 // NOTE: Weight in JSON file is in lbs, height in inches.
 Organism.prototype.compareHeight = function (compareHeight) {
+  const heightUnit = getHuman().selectedHeight === "FEET" ? "ft" : "cm";
   let fact;
-  let heightComparison = this.height == compareHeight;
-  heightComparison ? fact = `We are of the same height` : heightComparison = this.height < compareHeight ? fact = `${this.species} is shorter than ${compareHeight + this.height}` : fact = `${this.species} is taller than you by ${compareHeight }`;
+  let heightComparison = parseInt(this.height) == compareHeight;
+  heightComparison ? fact = `We are of the same height` : heightComparison = this.height < compareHeight ? fact = `${this.species} is shorter than ${(compareHeight - this.height) + heightUnit}` : fact = `${this.species} is taller than you by ${(this.height - compareHeight) + heightUnit}`;
   this.newFact(fact);
-}
+};
 
+//Added crytoGraphic to mitigate the risk of exposing generated random values.
 Organism.prototype.populateRandomFact = function(){
   const array = new Uint32Array(1);
   window.crypto.getRandomValues(array);
@@ -300,9 +332,3 @@ Organism.compareOrganisms = function (org1, org2) {
   function pageReload(){
     window.location.reload();
   }
-
-  // clearComparison();
-
-
-
-
