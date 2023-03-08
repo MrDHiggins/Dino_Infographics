@@ -83,7 +83,6 @@ function getHuman(){
   }
 
   const dinoConversion = {
-    dinos: {...dinos},
     getweightUnit: function(){
       let getWeightUnit = document.querySelectorAll('input[name=weightUnit]');
       const selectedWeightUnit = [...getWeightUnit].filter(unitEl => unitEl.checked)
