@@ -84,15 +84,15 @@ function getHuman(){
 
   const dinoConversion = {
     getweightUnit: function(){
-      let getWeightUnit = document.querySelectorAll('input[name=weightUnit]');
-      const selectedWeightUnit = [...getWeightUnit].filter(unitEl => unitEl.checked)
-        .map(unitEl => this.getWeightConversion(unitEl.id));
-  
+      let getWeightUnit = document.querySelectorAll('input[name=weightUnit]:checked');
+      const selectedWeightUnit = getWeightUnit[0].id;        
       return selectedWeightUnit;
     },
     getHeightUnit: function(){
-      let getHeightUnit = document.querySelectorAll('input[name=heightUnit]');
-      const selectedHeightUnit = [...getHeightUnit].filter(heightEl => heightEl.checked).map(heightEl => this.getHeightConversion(heightEl.id));
+      let getHeightUnit = document.querySelectorAll('input[name=heightUnit]:checked');
+      const selectedHeightUnit = getHeightUnit[0].id;
+
+      return selectedHeightUnit;
     },
     convertLbsToKg: function(decimalPlacing){
       const kgDivision = 2.205;
