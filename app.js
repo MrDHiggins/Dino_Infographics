@@ -94,20 +94,20 @@ function getHuman(){
 
       return selectedHeightUnit;
     },
-    convertLbsToKg: function(decimalPlacing){
+    convertLbsToKg: function(){
       const kgDivision = 2.205;
       dinos = [...dinos];
       dinos.forEach((dino) => {
-        return dino.weight = ((dino.weight / kgDivision)).toFixed(decimalPlacing);
+        return dino.weight = ((dino.weight / kgDivision));
       });
       return [...dinos];    
     },
   
-    convertKGToLbs: function(decimalPlacing){
+    convertKGToLbs: function(){
       let lbsDivision = 2.20;
       dinos = [...dinos];
       dinos.forEach((dino) => {
-        return dino.weight = (dino.weight* lbsDivision).toFixed(decimalPlacing);
+        return dino.weight = (dino.weight* lbsDivision);
       });
       
       return [...dinos];
@@ -119,20 +119,20 @@ function getHuman(){
       return measurementUnit;
     },
   
-    convertInchToCm: function(decimalPlacing){
+    convertInchToCm: function(){
       let cmDivision = 2.54;
       dinos = [...dinos];
       dinos.forEach((dino) => {
-        return dino.height = ((dino.height * cmDivision).toFixed(decimalPlacing));
+        return dino.height = ((dino.height * cmDivision));
       })
       return dinos;
     },
   
-    convertInchToFeet: function(decimalPlacing){
+    convertInchToFeet: function(){
       let inchDivision = 12;
       dinos = [...dinos];
       dinos.forEach((dino) => {
-        return dino.height = ((dino.height / inchDivision).toFixed(decimalPlacing));
+        return dino.height = ((dino.height / inchDivision));
       })
       return dinos
     },
