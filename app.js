@@ -115,7 +115,7 @@ function getHuman(){
   
     getWeightConversion: function(measurement){
       measurement.toString();
-      let measurementUnit = measurement !== 'lbs' ? dinoConversion.convertLbsToKg(2) : dinoConversion.convertKGToLbs(2);
+      let measurementUnit = measurement !== 'lbs' ? dinoConversion.convertLbsToKg() : dinoConversion.convertKGToLbs();
       return measurementUnit;
     },
   
