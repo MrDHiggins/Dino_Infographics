@@ -85,12 +85,12 @@ function getHuman(){
   const dinoConversion = {
     getweightUnit: function(){
       let getWeightUnit = document.querySelectorAll('input[name=weightUnit]:checked');
-      const selectedWeightUnit = getWeightUnit[0].id;        
+      const selectedWeightUnit = this.getHeightConversion(getWeightUnit[0].id);        
       return selectedWeightUnit;
     },
     getHeightUnit: function(){
       let getHeightUnit = document.querySelectorAll('input[name=heightUnit]:checked');
-      const selectedHeightUnit = getHeightUnit[0].id;
+      const selectedHeightUnit = this.getHeightConversion(getHeightUnit[0].id);
 
       return selectedHeightUnit;
     },
