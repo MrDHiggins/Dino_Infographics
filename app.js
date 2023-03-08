@@ -165,7 +165,7 @@ function getHuman(){
     weight = weight.toFixed(2) + " Lbs";
   } else {
     //weight = parseInt(weight) * 2.205;
-    weight = weight + " kg";
+    weight = parseInt(weight);
   }
 
   let height = getInputEl.getId("height");
