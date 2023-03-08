@@ -85,12 +85,12 @@ function getHuman(){
   const dinoConversion = {
     getweightUnit: function(){
       let getWeightUnit = document.querySelectorAll('input[name=weightUnit]:checked');
-      const selectedWeightUnit = this.getHeightConversion(getWeightUnit[0].id);        
+      const selectedWeightUnit = dinoConversion.getWeightConversion(getWeightUnit[0].id);        
       return selectedWeightUnit;
     },
     getHeightUnit: function(){
       let getHeightUnit = document.querySelectorAll('input[name=heightUnit]:checked');
-      const selectedHeightUnit = this.getHeightConversion(getHeightUnit[0].id);
+      const selectedHeightUnit = dinoConversion.getHeightConversion(getHeightUnit[0].id);
 
       return selectedHeightUnit;
     },
@@ -98,9 +98,9 @@ function getHuman(){
       const kgDivision = 2.205;
       dinos = [...dinos];
       dinos.forEach((dino) => {
-        return dino.weight = ((dino.weight / kgDivision));
-      });
-      return [...dinos];    
+        return [...dinos, weight == weight/ kgDivision]
+         //dino.weight = (dino.weight / kgDivision);
+      });   
     },
   
     convertKGToLbs: function(){
@@ -162,7 +162,6 @@ function getHuman(){
   let weight = getInputEl.getId("weight");
   if (selectedWeight === "lbs") {
     weight = parseInt(weight) * 2.205;
-    weight = weight.toFixed(2) + " Lbs";
   } else {
     //weight = parseInt(weight) * 2.205;
     weight = parseInt(weight);
@@ -171,10 +170,8 @@ function getHuman(){
   let height = getInputEl.getId("height");
   if (selectedHeight !== "CM") {
     height = parseInt(height) * 12;
-    height = height.toFixed(2) + " ft";
   } else {
     height = parseInt(height)
-    height = height.toFixed(2) + " cm";
   }
 
   const humanObj = new human(name, weight, height);
