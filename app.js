@@ -38,7 +38,7 @@
       }
     };
 
-    let dinos = []
+    let dinos = {};
  
 
     const populateDino = async () => {
