@@ -189,16 +189,6 @@ Organism.prototype.compareSpecies = function (compareSpecies) {
     this.newFact(fact);
 };
 
-// Create Dino Compare Method - Weight
-// NOTE: Weight in JSON file is in lbs, height in inches.
-// Organism.prototype.compareWeight = function (compareWeight) {
-//   // const weightUnit = getHuman().selectedWeight === "lbs" ? "lbs" : "kg";
-//   let fact;
-//   let weightComparison = dinos.weight == compareWeight;
-//   weightComparison ? fact = `We are of the same weight` : weightComparison = dinos.weight < compareWeight ? fact = `${dinos.species} weighs  ${(compareWeight - dinos.weight) + weightUnit} less than your weight of ${compareWeight}` : fact = `${dinos.species} weighs more than you by ${(dinos.weight - compareWeight)}`;
-//   return this.newFact(weightComparison);
-// }
-
 Organism.prototype.compareWeight = function (compareWeight) {
   // const weightUnit = getHuman().selectedWeight === "lbs" ? "lbs" : "kg";
   const fact = dinos.weight === compareWeight
