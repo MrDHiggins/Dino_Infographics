@@ -190,12 +190,12 @@ Organism.prototype.compareSpecies = function (compareSpecies) {
 };
 
 Organism.prototype.compareWeight = function (compareWeight) {
-  // const weightUnit = getHuman().selectedWeight === "lbs" ? "lbs" : "kg";
+  const weightUnit = document.querySelector('input[name=weightUnit]:checked').id;
   const fact = dinos.weight === compareWeight
     ? 'We are of the same weight'
-    : (this.weight.toFixed(2) > compareWeight ? `${this.species} weighs ${(this.weight.toFixed(2) - compareWeight)}  more than your weight of ${compareWeight}`
-    : `${this.species} weighs ${(compareWeight - this.weight.toFixed(2))} less than you`);
-    this.newFact(fact);
+    : (this.weight.toFixed(2) > compareWeight ? `${this.species} weighs ${(this.weight.toFixed(2) - compareWeight)}${weightUnit} more than your weight of ${compareWeight} ${weightUnit}`
+    : `${this.species} weighs ${(compareWeight - this.weight.toFixed(2))} ${weightUnit} less than you`);
+  this.newFact(fact);
 }
 
 // Create Dino Compare Method - Height
