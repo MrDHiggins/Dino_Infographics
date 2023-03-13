@@ -84,13 +84,13 @@ function getHuman(){
 
   const dinoConversion = {
     getweightUnit: function(){
-      let getWeightUnit = document.querySelectorAll('input[name=weightUnit]:checked');
-      const selectedWeightUnit = dinoConversion.getWeightConversion(getWeightUnit[0].id);        
+      let weightUnit = document.querySelectorAll('input[name=weightUnit]:checked');
+      const selectedWeightUnit = dinoConversion.getWeightConversion(weightUnit[0].id);        
       return selectedWeightUnit;
     },
     getHeightUnit: function(){
-      let getHeightUnit = document.querySelectorAll('input[name=heightUnit]:checked');
-      const selectedHeightUnit = dinoConversion.getHeightConversion(getHeightUnit[0].id);
+      let heightUnit = document.querySelectorAll('input[name=heightUnit]:checked');
+      const selectedHeightUnit = dinoConversion.getHeightConversion(heightUnit[0].id);
 
       return selectedHeightUnit;
     },
@@ -98,19 +98,16 @@ function getHuman(){
       const kgDivision = 2.205;
       dinos = [...dinos];
       dinos.forEach((dino) => {
-        // return [...dinos, weight == weight/ kgDivision]
          dino.weight = (dino.weight / kgDivision);
       });   
     },
   
     convertKGToLbs: function(){
-      let lbsDivision = 2.20;
+      let lbsDivision = 2.205;
       dinos = [...dinos];
       dinos.forEach((dino) => {
-        return dino.weight = (dino.weight* lbsDivision);
+        dino.weight = dino.weight* lbsDivision;
       });
-      
-      return [...dinos];
     },
   
     getWeightConversion: function(measurement){
@@ -123,18 +120,16 @@ function getHuman(){
       let cmDivision = 2.54;
       dinos = [...dinos];
       dinos.forEach((dino) => {
-        return dino.height = ((dino.height * cmDivision));
+        dino.height = (dino.height * cmDivision);
       })
-      return dinos;
     },
   
     convertInchToFeet: function(dinos){
       let inchDivision = 12;
       dinos = [...dinos];
       dinos.forEach((dino) => {
-        return dino.height = ((dino.height / inchDivision));
+        dino.height = (dino.height / inchDivision);
       })
-      return dinos
     },
   
     getHeightConversion: function(heightMeasurement){
@@ -144,7 +139,8 @@ function getHuman(){
     } 
   };
   
-
+// TODO: create a function that gets the weight and height of the human
+// TODO: work out calculations for human weight and height
   const getDinoWeight = () => {
     let newWeight = dinoConversion.getweightUnit();
     return newWeight;
@@ -163,7 +159,6 @@ function getHuman(){
   if (selectedWeight === "lbs") {
     weight = parseInt(weight) * 2.205;
   } else {
-    //weight = parseInt(weight) * 2.205;
     weight = parseInt(weight);
   }
 
