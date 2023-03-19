@@ -193,14 +193,13 @@ Organism.prototype.compareWeight = function (compareWeight) {
   this.newFact(fact);
 }
 
-// Create Dino Compare Method - Height
-// NOTE: Weight in JSON file is in lbs, height in inches.
 Organism.prototype.compareHeight = function (compareHeight) {
-  // const heightUnit = getHuman().selectedHeight === "FEET" ? "ft" : "cm";
-  let fact;
-  let heightComparison = parseInt(dinos.height) == compareHeight;
-  heightComparison ? fact = `We are of the same height` : heightComparison = dinos.height < compareHeight ? fact = `${dinos.species} is shorter than ${(compareHeight - dinos.height) + heightUnit}` : fact = `${dinos.species} is taller than you by ${(dinos.height - compareHeight)}`;
-
+  const heightUnit = document.querySelector('input[name=heightUnit]:checked').id;
+  const fact = dinos.weight === compareHeight
+    ? 'We are of the same height'
+    :(this.height > compareHeight ? `${this.species} is ${(this.height - compareHeight)}${heightUnit} taller than your height of ${compareHeight} ${heightUnit}`
+    : `${this.species} is ${(compareHeight - this.height)} ${heightUnit} shorter than you`);
+  this.newFact(fact);
 };
 
 //Added crytoGraphic to mitigate the risk of exposing generated random values.
