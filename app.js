@@ -197,8 +197,8 @@ Organism.prototype.compareHeight = function (compareHeight) {
   const heightUnit = document.querySelector('input[name=heightUnit]:checked').id;
   const fact = dinos.weight === compareHeight
     ? 'We are of the same height'
-    :(this.height > compareHeight ? `${this.species} is ${(this.height - compareHeight)} taller than your height of ${compareHeight}`
-    : `${this.species} is ${(compareHeight - this.height)} shorter than you`);
+    :(this.height > compareHeight ? `${this.species} is ${(this.height - compareHeight)}${heightUnit} taller than your height of ${compareHeight} ${heightUnit}`
+    : `${this.species} is ${(compareHeight - this.height)} ${heightUnit} shorter than you`);
   this.newFact(fact);
 };
 
