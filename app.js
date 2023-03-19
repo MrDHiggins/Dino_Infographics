@@ -65,7 +65,7 @@
     // populateDino();
     // Create Human Object
     function human(name, weight, height) {
-      Organism.call(this, 'human', parseInt(weight), parseInt(height));
+      Organism.call(this, 'human',  parseInt(weight), parseInt(height));
       this.name = name;
     }
     
@@ -101,17 +101,17 @@ function getHuman(){
       });   
     },
   
-    convertKGToLbs: function(){
-      let lbsDivision = 2.205;
-      dinos = [...dinos];
-      dinos.forEach((dino) => {
-        dino.weight = dino.weight* lbsDivision;
-      });
-    },
+    // convertKGToLbs: function(){
+    //   let lbsDivision = 2.205;
+    //   dinos = [...dinos];
+    //   dinos.forEach((dino) => {
+    //     dino.weight = dino.weight* lbsDivision;
+    //   });
+    // },
   
     getWeightConversion: function(measurement){
       measurement.toString();
-      let measurementUnit = measurement !== 'lbs' ? dinoConversion.convertLbsToKg(dinos) : dinoConversion.convertKGToLbs(dinos);
+      let measurementUnit = measurement !== 'Lbs' ? dinoConversion.convertLbsToKg(dinos) : null;
       return measurementUnit;
     },
   
@@ -158,7 +158,7 @@ function getHuman(){
 
   const name = getInputEl.getId("name");
   let weight = getInputEl.getId("weight");
-  if (selectedWeight === "lbs") {
+  if (selectedWeight === "Lbs") {
     weight = parseInt(weight) * 2.205;
   } else {
     weight = parseInt(weight);
@@ -166,7 +166,7 @@ function getHuman(){
 
   let height = getInputEl.getId("height");
   if (selectedHeight != "CM") {
-    height = parseInt(height) * 12;
+    height = parseInt(height) / 30.48;
   } else {
     height = parseInt(height)
   }
@@ -190,7 +190,7 @@ Organism.prototype.compareWeight = function (compareWeight) {
   const weightUnit = document.querySelector('input[name=weightUnit]:checked').id;
   const fact = dinos.weight === compareWeight
     ? 'We are of the same weight'
-    : (this.weight.toFixed(2) > compareWeight ? `${this.species} weighs ${(this.weight.toFixed(2) - compareWeight)}${weightUnit} more than your weight of ${compareWeight} ${weightUnit}`
+    : (this.weight.toFixed(2) > compareWeight ? `${this.species}'s weight of ${this.weight.toFixed(2)}${weightUnit} is ${(this.weight.toFixed(2) - compareWeight)}${weightUnit} more than your weight of ${compareWeight}${weightUnit}`
     : `${this.species} weighs ${(compareWeight - this.weight.toFixed(2))} ${weightUnit} less than you`);
   this.newFact(fact);
 }
@@ -199,8 +199,8 @@ Organism.prototype.compareHeight = function (compareHeight) {
   const heightUnit = document.querySelector('input[name=heightUnit]:checked').id;
   const fact = dinos.height === compareHeight
     ? 'We are of the same height'
-    :(this.height > compareHeight ? `${this.species} is ${(this.height - compareHeight)} ${heightUnit.toLowerCase()} taller than your height of ${compareHeight} ${heightUnit.toLowerCase()}`
-    : `You are taller than ${this.species} ${compareHeight.toFixed() - this.height.toFixed()} ${ heightUnit.toLowerCase()} shorter than your height of ${compareHeight} ${heightUnit.toLowerCase()}`);
+    : this.height > compareHeight ? `${this.species}'s height of ${this.height} is ${(this.height - compareHeight)} ${heightUnit.toLowerCase()} taller than your height of ${compareHeight} ${heightUnit.toLowerCase()}`
+    : `Your height of ${compareHeight}${heightUnit.toLowerCase()} is ${compareHeight.toFixed() - this.height.toFixed()}${heightUnit.toLowerCase()} more thab ${this.species}'s height of ${this.height}${heightUnit.toLowerCase()}`;
   this.newFact(fact);
 };
 
@@ -265,7 +265,7 @@ Organism.compareOrganisms = function (org1, org2) {
             if (index == 3) {
               console.log(index);
                 // insert human tile at center
-                let humanTileDiv = populateGridItem(human.species, human.image);
+                let humanTileDiv = populateGridItem(human.species, human.image, human.name);
 
                 document.getElementById("flip-card")
                     .appendChild(humanTileDiv);
