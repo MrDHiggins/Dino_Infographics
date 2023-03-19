@@ -193,8 +193,6 @@ Organism.prototype.compareWeight = function (compareWeight) {
   this.newFact(fact);
 }
 
-// Create Dino Compare Method - Height
-// NOTE: Weight in JSON file is in lbs, height in inches.
 Organism.prototype.compareHeight = function (compareHeight) {
   const heightUnit = document.querySelector('input[name=heightUnit]:checked').id;
   const fact = dinos.weight === compareHeight
