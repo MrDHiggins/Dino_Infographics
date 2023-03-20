@@ -1,189 +1,172 @@
-    // Create Dino Constructor
-    function Organism(species, weight, height, diet, where, when, facts) {
-      this.species = species
-      this.weight = weight
-      this.height = height
-      this.diet = diet
-      this.where = where
-      this.when = when
-      this.facts = facts ? [...facts] : []
-      this.image = `images/${species.toLowerCase()}.png`
-    }    
+/*
+* Author: Dyllan Higgins
+* Description: This is the main file for the Udacity Dino_Infographics project.'
+* Date last modified: 2023/03/20
+*/
+function Organism(species, weight, height, diet, where, when, facts) {
+  this.species = species
+  this.weight = weight
+  this.height = height
+  this.diet = diet
+  this.where = where
+  this.when = when
+  this.facts = facts ? [...facts] : []
+  this.image = `images/${species.toLowerCase()}.png`
+}
 
-    Organism.prototype.newFact = function (fact){
-      this.facts = [...this.facts,fact];
+Organism.prototype.newFact = function (fact) {
+  this.facts = [...this.facts, fact];
+}
+
+function Dino(species, weight, height, diet, where, when, facts) {
+  Organism.call(this, species, weight, height, diet, where, when, facts);
+}
+Dino.prototype = Object.create(Organism.prototype);
+Dino.prototype.constructor = Dino;
+
+const fetchDinoData = async () => {
+  try {
+    const res = await fetch(
+      "https://dino-infographics.herokuapp.com/Dinos"
+    );
+    if (res.ok) {
+      const data = await res.json();
+      return data;
+    } else {
+      throw new Error("Error fetching data from API.");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+let dinos = {};
+
+const populateDino = async () => {
+  const data = await fetchDinoData();
+  dinos = data.map(dino => new Dino(
+    dino.species,
+    dino.weight,
+    dino.height,
+    dino.diet,
+    dino.where,
+    dino.when,
+    dino.facts,
+  ));
+  return dinos;
+}
+
+(async function () {
+  await populateDino();
+})();
+
+function human(name, weight, height) {
+  Organism.call(this, 'human', parseInt(weight), parseInt(height));
+  this.name = name;
+}
+
+human.prototype = Object.create(Organism.prototype);
+human.prototype.constructor = human;
+
+(function () {
+  function getHuman() {
+    const getInputEl = {
+      getId: function (El_id) {
+        return document.getElementById(El_id).value;
+      },
     }
 
-    // Create Dino Objects
-    function Dino(species, weight, height, diet, where, when, facts) {
-        Organism.call(this, species, weight, height, diet, where, when, facts);
-    }
-    Dino.prototype = Object.create(Organism.prototype);
-    Dino.prototype.constructor = Dino;
+    const dinoConversion = {
+      getweightUnit: function () {
+        let weightUnit = document.querySelectorAll('input[name=weightUnit]:checked');
+        const selectedWeightUnit = dinoConversion.getWeightConversion(weightUnit[0].id);
+        return selectedWeightUnit;
+      },
+      getHeightUnit: function () {
+        let heightUnit = document.querySelectorAll('input[name=heightUnit]:checked');
+        const selectedHeightUnit = dinoConversion.getHeightConversion(heightUnit[0].id);
+        return selectedHeightUnit;
+      },
+      convertLbsToKg: function (dinos) {
+        const kgDivision = 2.205;
+        dinos = [...dinos];
+        dinos.forEach((dino) => {
+          dino.weight = (dino.weight / kgDivision);
+        });
+      },
 
-    //fetch dino data from server
-    const fetchDinoData = async () => {
-      try {
-        const res = await fetch(
-          "https://dino-infographics.herokuapp.com/Dinos"
-        );
-        if (res.ok) {
-          const data = await res.json();
-          return data;
-        } else {
-          throw new Error("Error fetching data from API.");
-        }
-      } catch (error) {
-        console.log(error);
+      getWeightConversion: function (measurement) {
+        measurement.toString();
+        let measurementUnit = measurement !== 'Lbs' ? dinoConversion.convertLbsToKg(dinos) : null;
+        return measurementUnit;
+      },
+
+      convertInchToCm: function (dinos) {
+        const cmDivision = 2.54;
+        dinos = [...dinos];
+        dinos.forEach((dino) => {
+          dino.height = (dino.height * cmDivision);
+        })
+      },
+
+      convertInchToFeet: function (dinos) {
+        const inchDivision = 12;
+        dinos = [...dinos];
+        dinos.forEach((dino) => {
+          dino.height = (dino.height / inchDivision);
+        })
+      },
+
+      getHeightConversion: function (heightMeasurement) {
+        heightMeasurement.toString();
+        let selectedHeight = heightMeasurement !== 'FEET' ? dinoConversion.convertInchToCm(dinos) : dinoConversion.convertInchToFeet(dinos);
+        return selectedHeight;
       }
     };
 
-    let dinos = {};
- 
+    const getDinoWeight = () => {
+      const newWeight = dinoConversion.getweightUnit();
+      return newWeight;
+    };
+    const getDinoHeight = () => {
+      const newHeight = dinoConversion.getHeightUnit();
+      return newHeight;
+    };
+    getDinoWeight()
+    getDinoHeight();
 
-    const populateDino = async () => {
-        const data = await fetchDinoData();
-        dinos = data.map(dino => new Dino(
-            dino.species,
-            dino.weight,
-            dino.height,
-            dino.diet,
-            dino.where, 
-            dino.when,
-            dino.facts,
-        ));
-        console.log(dinos);
-        return dinos;
-        
+    const selectedWeight = document.querySelector('input[name=weightUnit]:checked').id;
+    const selectedHeight = document.querySelector('input[name=heightUnit]:checked').id;
+
+    const name = getInputEl.getId("name");
+    let weight = getInputEl.getId("weight");
+    if (selectedWeight === "Lbs") {
+      const pountToKg = 2.205;
+      weight = parseInt(weight) * pountToKg;
+    } else {
+      weight = parseInt(weight);
     }
-    
-    (async function() {
-      await populateDino();
-      // Other code that uses the dinos array
-    })();
-    
-    // populateDino();
-    // Create Human Object
-    function human(name, weight, height) {
-      Organism.call(this, 'human',  parseInt(weight), parseInt(height));
-      this.name = name;
+
+    let height = getInputEl.getId("height");
+    if (selectedHeight != "CM") {
+      const footToLbs = 30.48;
+      height = parseInt(height) / footToLbs;
+    } else {
+      height = parseInt(height)
     }
-    
-    human.prototype = Object.create(Organism.prototype);
-    human.prototype.constructor = human;
-    
 
-   // Use IIFE to get human data from form
-(function(){
-function getHuman(){
-  const getInputEl = {
-    getId: function(El_id){
-        return document.getElementById(El_id).value;
-    },
+    const humanObj = new human(name, weight, height);
+
+    return humanObj;
   }
-
-  const dinoConversion = {
-    getweightUnit: function(){
-      let weightUnit = document.querySelectorAll('input[name=weightUnit]:checked');
-      const selectedWeightUnit = dinoConversion.getWeightConversion(weightUnit[0].id);        
-      return selectedWeightUnit;
-    },
-    getHeightUnit: function(){
-      let heightUnit = document.querySelectorAll('input[name=heightUnit]:checked');
-      const selectedHeightUnit = dinoConversion.getHeightConversion(heightUnit[0].id);
-      return selectedHeightUnit;
-    },
-    convertLbsToKg: function(dinos){
-      const kgDivision = 2.205;
-      dinos = [...dinos];
-      dinos.forEach((dino) => {
-         dino.weight = (dino.weight / kgDivision);
-      });   
-    },
-  
-    // convertKGToLbs: function(){
-    //   let lbsDivision = 2.205;
-    //   dinos = [...dinos];
-    //   dinos.forEach((dino) => {
-    //     dino.weight = dino.weight* lbsDivision;
-    //   });
-    // },
-  
-    getWeightConversion: function(measurement){
-      measurement.toString();
-      let measurementUnit = measurement !== 'Lbs' ? dinoConversion.convertLbsToKg(dinos) : null;
-      return measurementUnit;
-    },
-  
-    convertInchToCm: function(dinos){
-      const cmDivision = 2.54;
-      dinos = [...dinos];
-      dinos.forEach((dino) => {
-        dino.height = (dino.height * cmDivision);
-      })
-    },
-  
-    convertInchToFeet: function(dinos){
-      const inchDivision = 12;
-      dinos = [...dinos];
-      dinos.forEach((dino) => {
-        dino.height = (dino.height / inchDivision);
-      })
-    },
-  
-    getHeightConversion: function(heightMeasurement){
-      heightMeasurement.toString();
-      let selectedHeight = heightMeasurement !== 'FEET' ? dinoConversion.convertInchToCm(dinos) : dinoConversion.convertInchToFeet(dinos);
-      return selectedHeight;
-    } 
-  };
-  
-// TODO: create a function that gets the weight and height of the human
-// TODO: work out calculations for human weight and height
-
-// call dinoWeight
-  const getDinoWeight = () => {
-    const newWeight = dinoConversion.getweightUnit();
-    return newWeight;
-  };
-  const getDinoHeight = () => {
-    const newHeight = dinoConversion.getHeightUnit();
-    return newHeight;
-  };
-  getDinoWeight()
-  getDinoHeight();
-  const selectedWeight = document.querySelector('input[name=weightUnit]:checked').id;
-
-  const selectedHeight = document.querySelector('input[name=heightUnit]:checked').id;
-
-  const name = getInputEl.getId("name");
-  let weight = getInputEl.getId("weight");
-  if (selectedWeight === "Lbs") {
-    weight = parseInt(weight) * 2.205;
-  } else {
-    weight = parseInt(weight);
-  }
-
-  let height = getInputEl.getId("height");
-  if (selectedHeight != "CM") {
-    height = parseInt(height) / 30.48;
-  } else {
-    height = parseInt(height)
-  }
-
-  const humanObj = new human(name, weight, height);
-
-
-  return humanObj;
-    }
-    window.getHuman = getHuman; // export getHuman to the global scope
+  window.getHuman = getHuman;
 })();
 
 Organism.prototype.compareSpecies = function (compareSpecies) {
   const fact = dinos.species === compareSpecies
     ? 'We are of the same species'
     : `I am a ${this.species} and you are a ${compareSpecies}`;
-    this.newFact(fact);
+  this.newFact(fact);
 };
 
 Organism.prototype.compareWeight = function (compareWeight) {
@@ -191,7 +174,7 @@ Organism.prototype.compareWeight = function (compareWeight) {
   const fact = dinos.weight === compareWeight
     ? 'We are of the same weight'
     : (this.weight.toFixed(2) > compareWeight ? `${this.species}'s weight of ${this.weight.toFixed(2)}${weightUnit} is ${(this.weight.toFixed(2) - compareWeight)}${weightUnit} more than your weight of ${compareWeight}${weightUnit}`
-    : `${this.species} weighs ${(compareWeight - this.weight.toFixed(2))} ${weightUnit} less than you`);
+      : `${this.species}'s weight of ${this.weight.toFixed(2)}${weightUnit} is ${(compareWeight - this.weight.toFixed(2))}${weightUnit} less than your weight of ${compareWeight}${weightUnit}`);
   this.newFact(fact);
 }
 
@@ -199,28 +182,24 @@ Organism.prototype.compareHeight = function (compareHeight) {
   const heightUnit = document.querySelector('input[name=heightUnit]:checked').id;
   const fact = dinos.height === compareHeight
     ? 'We are of the same height'
-    : this.height > compareHeight ? `${this.species}'s height of ${this.height} is ${(this.height - compareHeight)} ${heightUnit.toLowerCase()} taller than your height of ${compareHeight} ${heightUnit.toLowerCase()}`
-    : `Your height of ${compareHeight}${heightUnit.toLowerCase()} is ${compareHeight.toFixed() - this.height.toFixed()}${heightUnit.toLowerCase()} more thab ${this.species}'s height of ${this.height}${heightUnit.toLowerCase()}`;
+    : this.height > compareHeight ? `${this.species}'s height of ${this.height}${heightUnit.toLowerCase()} is ${(this.height - compareHeight)} ${heightUnit.toLowerCase()} taller than your height of ${compareHeight}${heightUnit.toLowerCase()}`
+      : `Your height of ${compareHeight}${heightUnit.toLowerCase()} is ${compareHeight.toFixed() - this.height.toFixed()}${heightUnit.toLowerCase()} more than ${this.species}'s height of ${this.height}${heightUnit.toLowerCase()}`;
   this.newFact(fact);
 };
 
-//Added crytoGraphic to mitigate the risk of exposing generated random values.
-Organism.prototype.populateRandomFact = function(){
+Organism.prototype.populateRandomFact = function () {
   const array = new Uint32Array(1);
   window.crypto.getRandomValues(array);
   let index = array[0] % this.facts.length;
   return this.facts[index];
 }
 
-// Create Dino Compare Method - All
 Organism.prototype.compareAll = function (compareSpecies, compareWeight, compareHeight) {
   this.compareSpecies(compareSpecies);
   this.compareWeight(compareWeight);
   this.compareHeight(compareHeight);
-  }
+}
 
-
-// Create Comparison Method - Pass in 2 Organisms
 Organism.compareOrganisms = function (org1, org2) {
   org1.compareAll(
     org1.species,
@@ -234,95 +213,98 @@ Organism.compareOrganisms = function (org1, org2) {
   );
 };
 
-    //To-Do
-    // turn the below code [lin 138-168] into a function
-    //Invoke the function
-    document.getElementById("flip-card").style.display = "none";
-    document.getElementById("btn")
-    .addEventListener("click", function () {
-        const human = getHuman();
-        let a = [...dinos];
-        console.log(`This is my new dino{}: ${JSON.stringify(a)}`);
-        // console.log(human);
-        dinos.forEach((dino) => {
-          dino.compareAll(human.species, human.weight, human.height);
+document.getElementById("flip-card").style.display = "none";
+document.getElementById("btn")
+  .addEventListener("click", function () {
 
-        })
-        // Hide Form from UI
-        document.getElementById("dino-compare").style.display = "none";
-        document.getElementById("flip-card").style.display = 'grid'
-        // Generate Grids and add back to DOM
-        for (let index in dinos) {
-          let dino = dinos[index];
-          // To-Dp
-          //add random fact generator method, and iterate through
-          let fact = dino.populateRandomFact();
-          //Infographic must display organism attributes onHover of grid-item
-            let gridItemEl = populateGridItem(dino.species, dino.image, fact);
+    let name = document.forms["user-input"]["name"].value;
+    let weight = document.forms["user-input"]["weight"].value;
+    let height = document.forms["user-input"]["height"].value;
 
-            document.getElementById("flip-card")
-                .appendChild(gridItemEl);
-            if (index == 3) {
-              console.log(index);
-                // insert human tile at center
-                let humanTileDiv = populateGridItem(human.species, human.image, human.name);
+    const formValidation = [name, weight, height]
+      .every((input) => input !== "");
 
-                document.getElementById("flip-card")
-                    .appendChild(humanTileDiv);
-            }
+    if (!formValidation) {
+      return alert("All fields must be filled out");
+    } else if (name == "") {
+      return alert("Name must be filled out");
+    } else if (weight == "") {
+      returnalert("Weight must be filled out");
+    } else if (height == "") {
+      return alert("Height must be filled out");
+    } else {
+      const human = getHuman();
+      dinos.forEach((dino) => {
+        dino.compareAll(human.species, human.weight, human.height);
+      })
+      document.getElementById("dino-compare").style.display = "none";
+      document.getElementById("flip-card").style.display = 'grid';
+      for (let index in dinos) {
+        let dino = dinos[index];
+
+        let fact = dino.populateRandomFact();
+        let gridItemEl = populateGridItem(dino.species, dino.image, fact);
+
+        document.getElementById("flip-card").appendChild(gridItemEl);
+        if (index == 3) {
+          let humanTileDiv = populateGridItem(human.species, human.image, human.name);
+          document.getElementById("flip-card").appendChild(humanTileDiv);
         }
-        populateResetButton();
-        clearComparison();
-    });
-    
-    function populateGridItem(species, image, fact) {
+      }
 
-      let gridItemEl = document.createElement("div");
-      gridItemEl.className = "flip-card-inner";
-  
-      let itemFrontDiv = document.createElement('div');
-      itemFrontDiv.className = 'flip-card-front';
-      gridItemEl.appendChild(itemFrontDiv);
+      populateResetButton();
+      clearComparison();
+    }
+  });
 
-      let speciesDiv = document.createElement("h3");
-      speciesDiv.innerText = species;
-      itemFrontDiv.appendChild(speciesDiv);
+function populateGridItem(species, image, fact) {
 
-      let imageDiv = document.createElement("img");
-      imageDiv.src = image;
-      itemFrontDiv.appendChild(imageDiv);
+  let gridItemEl = document.createElement("div");
+  gridItemEl.className = "flip-card-inner";
 
-      let itemBackDiv = document.createElement('div');
-      itemBackDiv.className = 'flip-card-back';
-      gridItemEl.appendChild(itemBackDiv);
+  let itemFrontDiv = document.createElement('div');
+  itemFrontDiv.className = 'flip-card-front';
+  gridItemEl.appendChild(itemFrontDiv);
 
-      let factFiv = document.createElement("p");
-      factFiv.innerText = fact;
-      itemBackDiv.appendChild(factFiv);
-      
-      return gridItemEl;
-  }
+  let speciesDiv = document.createElement("h3");
+  speciesDiv.innerText = species;
+  itemFrontDiv.appendChild(speciesDiv);
 
-  function populateResetButton(){
-    
-    let gridDiv = document.getElementById('grid');
+  let imageDiv = document.createElement("img");
+  imageDiv.src = image;
+  itemFrontDiv.appendChild(imageDiv);
 
-    let resetDiv = document.createElement('div');
-    resetDiv.id = 'reset';
-    gridDiv.appendChild(resetDiv);
+  let itemBackDiv = document.createElement('div');
+  itemBackDiv.className = 'flip-card-back';
+  gridItemEl.appendChild(itemBackDiv);
 
-    let clearBtn = document.createElement('div');
-    clearBtn.id = 'clearBtn';
-    clearBtn.innerHTML = 'Reset';
-    
-    resetDiv.appendChild(clearBtn);
+  let factFiv = document.createElement("p");
+  factFiv.innerText = fact;
+  itemBackDiv.appendChild(factFiv);
 
-    return gridDiv;
-  }
-  function clearComparison(){
-    clearBtn.addEventListener('click',pageReload);
-  }
+  return gridItemEl;
+}
 
-  function pageReload(){
-    window.location.reload();
-  }
+function populateResetButton() {
+
+  let gridDiv = document.getElementById('grid');
+
+  let resetDiv = document.createElement('div');
+  resetDiv.id = 'reset';
+  gridDiv.appendChild(resetDiv);
+
+  let clearBtn = document.createElement('div');
+  clearBtn.id = 'clearBtn';
+  clearBtn.innerHTML = 'Reset';
+
+  resetDiv.appendChild(clearBtn);
+
+  return gridDiv;
+}
+function clearComparison() {
+  clearBtn.addEventListener('click', pageReload);
+}
+
+function pageReload() {
+  window.location.reload();
+}
