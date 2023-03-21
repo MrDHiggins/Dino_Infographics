@@ -70,23 +70,26 @@ Human.prototype.constructor = Human;
 
 (function () {
   function getHuman () {
+    // getID function to get the value of an input element
     const getInputEl = {
       getId: function (elementId) {
         return document.getElementById(elementId).value
       }
     }
-
+    // getWeightUnit function to get the value of the weightUnit group, radio button value
     const dinoConversion = {
       getweightUnit: function () {
         const weightUnit = document.querySelectorAll('input[name=weightUnit]:checked')
         const selectedWeightUnit = dinoConversion.getWeightConversion(weightUnit[0].id)
         return selectedWeightUnit
       },
+      // getHeightUnit function to get the value of the heightUnit group, radio button value
       getHeightUnit: function () {
         const heightUnit = document.querySelectorAll('input[name=heightUnit]:checked')
         const selectedHeightUnit = dinoConversion.getHeightConversion(heightUnit[0].id)
         return selectedHeightUnit
       },
+      // convertLbsToKg function to convert lbs to kg
       convertLbsToKg: function (dinos) {
         const kgDivision = 2.205
         dinos = [...dinos]
@@ -94,13 +97,13 @@ Human.prototype.constructor = Human;
           dino.weight = (dino.weight / kgDivision)
         })
       },
-
+      // convertKgToLbs function to convert kg to lbs - itenarary condition evaluation for the weight conversion
       getWeightConversion: function (measurement) {
         measurement.toString()
         const measurementUnit = measurement !== 'Lbs' ? dinoConversion.convertLbsToKg(dinos) : null
         return measurementUnit
       },
-
+      // convertCmToInch function to convert cm to inch
       convertInchToCm: function (dinos) {
         const cmDivision = 2.54
         dinos = [...dinos]
@@ -108,7 +111,7 @@ Human.prototype.constructor = Human;
           dino.height = (dino.height * cmDivision)
         })
       },
-
+      // convertInchToFeet function to convert inch to feet
       convertInchToFeet: function (dinos) {
         const inchDivision = 12
         dinos = [...dinos]
@@ -116,18 +119,19 @@ Human.prototype.constructor = Human;
           dino.height = (dino.height / inchDivision)
         })
       },
-
+      // convertCmToInch function to convert cm to inch - itenarary condition evaluation for the height conversion
       getHeightConversion: function (heightMeasurement) {
         heightMeasurement.toString()
         const selectedHeight = heightMeasurement !== 'FEET' ? dinoConversion.convertInchToCm(dinos) : dinoConversion.convertInchToFeet(dinos)
         return selectedHeight
       }
     }
-
+    // Assign variable to the value of the weightUnit radio button id attribute
     const getDinoWeight = () => {
       const newWeight = dinoConversion.getweightUnit()
       return newWeight
     }
+    // Assign variable to the value of the heightUnit radio button id attribute
     const getDinoHeight = () => {
       const newHeight = dinoConversion.getHeightUnit()
       return newHeight
@@ -135,9 +139,11 @@ Human.prototype.constructor = Human;
     getDinoWeight()
     getDinoHeight()
 
+    // Variable declaration for the form inputs
     const selectedWeight = document.querySelector('input[name=weightUnit]:checked').id
     const selectedHeight = document.querySelector('input[name=heightUnit]:checked').id
 
+    // Create a new human object
     const name = getInputEl.getId('name')
     let weight = getInputEl.getId('weight')
     if (selectedWeight === 'Lbs') {
@@ -159,9 +165,11 @@ Human.prototype.constructor = Human;
 
     return humanObj
   }
+  // Assign the getHuman function to the global window object to be accessible in the index.js file
   window.getHuman = getHuman
 })()
 
+// Create Dino Compare Method 1 - Compare Species type
 Organism.prototype.compareSpecies = function (compareSpecies) {
   const fact = dinos.species === compareSpecies
     ? 'We are of the same species'
@@ -169,6 +177,7 @@ Organism.prototype.compareSpecies = function (compareSpecies) {
   this.newFact(fact)
 }
 
+// Create Dino Compare Method 2 - Compare Weight between human and dinos
 Organism.prototype.compareWeight = function (compareWeight) {
   const weightUnit = document.querySelector('input[name=weightUnit]:checked').id
   const fact = dinos.weight === compareWeight
@@ -179,6 +188,7 @@ Organism.prototype.compareWeight = function (compareWeight) {
   this.newFact(fact)
 }
 
+// Create Dino Compare Method 3 - Compare Height between human and dinos
 Organism.prototype.compareHeight = function (compareHeight) {
   const heightUnit = document.querySelector('input[name=heightUnit]:checked').id
   const fact = dinos.height === compareHeight
@@ -189,6 +199,7 @@ Organism.prototype.compareHeight = function (compareHeight) {
   this.newFact(fact)
 }
 
+// Create Dino Compare Method 4 - Populate Random Fact about the dino
 Organism.prototype.populateRandomFact = function () {
   const array = new Uint32Array(1)
   window.crypto.getRandomValues(array)
@@ -196,12 +207,14 @@ Organism.prototype.populateRandomFact = function () {
   return this.facts[index]
 }
 
+// Compare the human and dino objects
 Organism.prototype.compareAll = function (compareSpecies, compareWeight, compareHeight) {
   this.compareSpecies(compareSpecies)
   this.compareWeight(compareWeight)
   this.compareHeight(compareHeight)
 }
 
+// Method to compare all dino properties with the human object
 Organism.compareOrganisms = function (org1, org2) {
   org1.compareAll(
     org1.species,
