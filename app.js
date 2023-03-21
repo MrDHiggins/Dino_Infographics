@@ -1,7 +1,8 @@
 /*
 * Author: Dyllan Higgins
 * Description: This is the main file for the Udacity Dino_Infographics project.'
-* Date last modified: 2023/03/20
+* Date last modified: 2023/03/21
+* Changes made: Refactored code according to feedback from Udacity reviewer.
 */
 function Organism (species, weight, height, diet, where, when, facts) {
   this.species = species
