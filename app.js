@@ -165,8 +165,10 @@ Human.prototype.constructor = Human;
 
     return humanObj
   }
-  // Assign the getHuman function to the global window object to be accessible in the index.js file
+  // Assign the getHuman function to the global window object to be accessible in the app.js file
   window.getHuman = getHuman
+
+  return getHuman
 })()
 
 // Create Dino Compare Method 1 - Compare Species type
@@ -247,7 +249,7 @@ document.getElementById('btn')
     } else if (height === '') {
       return alert('Height must be filled out')
     } else {
-      const human = this.getHuman()
+      const human = window.getHuman()
       dinos.forEach((dino) => {
         dino.compareAll(human.species, human.weight, human.height)
       })
@@ -255,12 +257,14 @@ document.getElementById('btn')
       document.getElementById('flip-card').style.display = 'grid'
       for (const index in dinos) {
         const dino = dinos[index]
-
-        const fact = dino.populateRandomFact()
+        let fact = dino.populateRandomFact()
+        if (dino.species === 'Pigeon') {
+          fact = 'All birds are living dinosaurs.'
+        }
         const gridItemEl = populateGridItem(dino.species, dino.image, fact)
 
         document.getElementById('flip-card').appendChild(gridItemEl)
-        if (index === 3) {
+        if (index === '3') {
           const humanTileDiv = populateGridItem(human.species, human.image, human.name)
           document.getElementById('flip-card').appendChild(humanTileDiv)
         }
